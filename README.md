@@ -8,4 +8,10 @@ A web interface for a pre-experimental data collector.
 
 ### Start local development 
 
-Run `yarn start` and open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Run the commands sequentially:
+
+`yarn install`
+
+`yarn start`
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
