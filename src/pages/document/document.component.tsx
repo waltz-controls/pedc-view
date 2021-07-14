@@ -34,7 +34,7 @@ function renderComponentByType(
     },
     [LibraryComponentType.FILE_INPUT]: {
       instance: FileInputComponent,
-      props: {value: rawComponent.value}
+      props: {file: rawComponent.value}
     },
     [LibraryComponentType.TAG_INPUT]: {
       instance: TagInputComponent,
@@ -91,6 +91,8 @@ export default function DocumentComponent() {
   const {id}: any = useParams();
   const api = new DocumentApiService(ListApiServiceType.DOCUMENT);
   const document = api.findOne(id);
+
+  console.log(document);
 
   const blocks: any = document.blocks.map((component: ComponentType, index: number) => {
     return renderComponentByType(control, String(index), component);
