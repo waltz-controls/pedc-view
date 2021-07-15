@@ -12,7 +12,7 @@ type RadioGroupComponentProps = {
 };
 
 export function RadioGroupComponent(props: RadioGroupComponentProps) {
-  const [value, setValue] = useState(props.selectedValue || null);
+  const [value, setValue] = useState(props.selectedValue);
 
   useEffect(() => {
     props.onChange(value);

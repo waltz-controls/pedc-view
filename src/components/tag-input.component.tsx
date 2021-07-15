@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {TagInput} from "@blueprintjs/core";
 
-type TagInputComponentProps = { values: any[], onChange(values: string[]): void };
+type TagInputComponentProps = {
+  values: any[],
+  onChange(values: string[]): void
+};
 
 export function TagInputComponent(props: TagInputComponentProps) {
   const [values, setValues] = useState(props.values);
@@ -14,7 +17,7 @@ export function TagInputComponent(props: TagInputComponentProps) {
     <TagInput
       {...props}
       onChange={(values) => setValues(values)}
-      values={values}
+      values={values || []}
     />
   )
 }

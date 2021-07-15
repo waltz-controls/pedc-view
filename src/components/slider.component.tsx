@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Slider} from "@blueprintjs/core";
 
-type SliderComponentProps = { value: number, onChange(value: number): void };
+type SliderComponentProps = {
+  value: number,
+  onChange(value: number): void
+};
 
 export function SliderComponent(props: SliderComponentProps) {
   const [value, setValue] = useState(props.value);
