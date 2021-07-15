@@ -1,17 +1,38 @@
 import React from 'react';
 import './library.component.scss';
-import {Callout, Card, H3} from "@blueprintjs/core";
-import LibraryService from "../../services/library.service";
-import {ComponentType} from "../../types";
-import RenderService from "../../services/render.service";
+import {
+  Callout,
+  Card,
+  H3,
+} from "@blueprintjs/core";
+import {ComponentType, LibraryComponentType} from "../../types";
+import ComponentService from "../../services/component.service";
 
 type LibraryComponentProps = {
   select(value: ComponentType): void
 };
 
+function getAllComponents(): any[] {
+  return [
+    LibraryComponentType.FILE_INPUT,
+    LibraryComponentType.CHECKBOX,
+    LibraryComponentType.SWITCH,
+    LibraryComponentType.NUMERIC_INPUT,
+    LibraryComponentType.TAG_INPUT,
+    LibraryComponentType.RADIO_GROUP,
+    LibraryComponentType.SLIDER,
+  ].map((type) => {
+    return {
+      type,
+      instance: ComponentService.getInstanceByType(type),
+      props: ComponentService.getDefaultPropsByType(type)
+    }
+  });
+}
+
 export default function LibraryComponent(props: LibraryComponentProps) {
 
-  const components = LibraryService.getAllComponents();
+  const components = getAllComponents();
 
   return (
     <>
@@ -29,12 +50,14 @@ export default function LibraryComponent(props: LibraryComponentProps) {
             interactive
             onClick={() => props.select(component)}
           >
-            {RenderService.renderBlock(component, {
-              onClick: (e: React.MouseEvent<HTMLElement>) => {
+            <component.instance
+              {...component.props}
+              onClick={(e: React.MouseEvent<HTMLElement>) => {
                 e.preventDefault();
                 e.stopPropagation();
-              }
-            })}
+              }}
+            >
+            </component.instance>
           </Card>
         ))}
       </div>

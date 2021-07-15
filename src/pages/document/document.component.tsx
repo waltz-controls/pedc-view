@@ -1,11 +1,8 @@
 import React from 'react';
 import {
   Button,
-  Checkbox,
   H3,
   Intent,
-  NumericInput,
-  Switch,
 } from "@blueprintjs/core";
 import {ComponentType, LibraryComponentType, RawComponentType} from "../../types";
 import './document.component.scss';
@@ -13,54 +10,21 @@ import {useHistory, useParams} from 'react-router-dom';
 import DocumentApiService from "../../api/document.api.service";
 import {Control, Controller, useForm} from "react-hook-form";
 import {ListApiServiceType} from "../../api/list.api.service";
-import {FileInputComponent} from "../../components/file-input.component";
-import {TagInputComponent} from "../../components/tag-input.component";
-import {RadioGroupComponent} from "../../components/radio-group.component";
-import {SliderComponent} from "../../components/slider.component";
+import ComponentService from "../../services/component.service";
+
 
 function renderComponentByType(
   control: Control,
   name: string,
-  rawComponent: RawComponentType | any
+  rawComponent: RawComponentType
 ): any {
-  const component: any = {
-    [LibraryComponentType.NUMERIC_INPUT]: {
-      instance: NumericInput,
-      props: {value: rawComponent.value}
-    },
-    [LibraryComponentType.CHECKBOX]: {
-      instance: Checkbox,
-      props: {checked: rawComponent.value}
-    },
-    [LibraryComponentType.FILE_INPUT]: {
-      instance: FileInputComponent,
-      props: {file: rawComponent.value}
-    },
-    [LibraryComponentType.TAG_INPUT]: {
-      instance: TagInputComponent,
-      props: {values: rawComponent.value || []}
-    },
-    [LibraryComponentType.RADIO_GROUP]: {
-      instance: RadioGroupComponent,
-      props: {selectedValue: rawComponent.value}
-    },
-    [LibraryComponentType.SWITCH]: {
-      instance: Switch,
-      props: {checked: rawComponent.value}
-    },
-    [LibraryComponentType.SLIDER]: {
-      instance: SliderComponent,
-      props: {value: rawComponent.value}
-    },
-  }[String(rawComponent.type)] || null;
 
-  if (!component) {
-    return null;
+  const component: ComponentType = {
+    ...rawComponent,
+    instance: ComponentService.getInstanceByType(rawComponent.type),
   }
 
-  component.type = rawComponent.type;
-  component.props = {...rawComponent.props, ...component.props};
-
+  // TODO - remove this workaround
   const onChangeName = {
     [LibraryComponentType.NUMERIC_INPUT]: 'onValueChange',
   }[String(component.type)] || 'onChange';
@@ -83,32 +47,41 @@ function renderComponentByType(
   )
 }
 
+function prepareBlocksData(formData: any, document: any): ComponentType[] {
+  return document.blocks
+    .map((block: RawComponentType, index: number) => {
+      if (formData[index] === undefined) {
+        return block;
+      }
+
+      const customProps = ComponentService.mapValueToPropByType(block.type, formData[index]);
+      const updatedProps = {...block.props, ...customProps};
+
+      return {
+        ...block,
+        props: updatedProps
+      };
+    });
+}
+
 
 export default function DocumentComponent() {
-  const {handleSubmit, control} = useForm();
+  const {watch, control} = useForm();
 
+  const formValues = watch();
   const history = useHistory();
   const {id}: any = useParams();
   const api = new DocumentApiService(ListApiServiceType.DOCUMENT);
   const document = api.findOne(id);
 
-  console.log(document);
-
-  const blocks: any = document.blocks.map((component: ComponentType, index: number) => {
+  const blocks: any = prepareBlocksData(formValues, document).map((component: ComponentType, index: number) => {
     return renderComponentByType(control, String(index), component);
   });
 
-  const submitFunction = (formData: any) => {
-    const blocks = document.blocks
-      .map((block: RawComponentType, index: number) => {
-        if (!formData[index]) {
-          return block;
-        }
-
-        return {...block, value: formData[index]};
-      });
-
-    api.updateOne(document.id, {blocks})
+  const submitFunction = () => {
+    api.updateOne(document.id, {
+      blocks: prepareBlocksData(formValues, document)
+    });
   }
 
   return (
@@ -131,7 +104,7 @@ export default function DocumentComponent() {
         <Button
           intent={Intent.PRIMARY}
           text={'Update document'}
-          onClick={handleSubmit(submitFunction)}
+          onClick={submitFunction}
         />
 
       </form>

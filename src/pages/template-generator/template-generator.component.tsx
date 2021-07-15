@@ -3,7 +3,6 @@ import './generator.component.scss';
 import {Button, ButtonGroup, Callout, H3, Intent} from "@blueprintjs/core";
 import {ComponentType} from "../../types";
 import './template-generator.component.scss';
-import RenderService from "../../services/render.service";
 
 type TemplateComponentProps = {
   blocks: ComponentType[];
@@ -13,11 +12,9 @@ type TemplateComponentProps = {
 
 export default function TemplateGeneratorComponent(props: TemplateComponentProps) {
 
-  function renderBlocks(blocks: ComponentType[]): any {
-    return blocks.map((component: ComponentType) => RenderService.renderBlock(component))
-  }
-
-  const blocks = renderBlocks(props.blocks);
+  const blocks = props.blocks.map((component: ComponentType) => (
+    <component.instance {...component.props} />
+  ));
 
   return (
     <>
