@@ -4,48 +4,15 @@ import {
   H3,
   Intent,
 } from "@blueprintjs/core";
-import {ComponentType, LibraryComponentType, RawComponentType} from "../../types";
+import {ComponentType, RawComponentType} from "../../types";
 import './document.component.scss';
 import {useHistory, useParams} from 'react-router-dom';
 import DocumentApiService from "../../api/document.api.service";
-import {Control, Controller, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {ListApiServiceType} from "../../api/list.api.service";
 import ComponentService from "../../services/component.service";
+import renderComponentByType from "../../services/renderComponentByType";
 
-
-function renderComponentByType(
-  control: Control,
-  name: string,
-  rawComponent: RawComponentType
-): any {
-
-  const component: ComponentType = {
-    ...rawComponent,
-    instance: ComponentService.getInstanceByType(rawComponent.type),
-  }
-
-  // TODO - remove this workaround
-  const onChangeName = {
-    [LibraryComponentType.NUMERIC_INPUT]: 'onValueChange',
-  }[String(component.type)] || 'onChange';
-
-  return (
-    <Controller
-      control={control}
-      name={name}
-      render={({field}: any) => {
-        component.props[onChangeName] = field.onChange;
-
-        return (
-          <component.instance
-            {...component.props}
-            onBlur={field.onBlur}
-          />
-        );
-      }}
-    />
-  )
-}
 
 function prepareBlocksData(formData: any, document: any): ComponentType[] {
   return document.blocks
