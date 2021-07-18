@@ -6,7 +6,7 @@ export enum LibraryComponentType {
   RADIO_GROUP = 'RADIO_GROUP',
   SWITCH = 'SWITCH',
   SLIDER = 'SLIDER',
-  // TEXT_INPUT = 'TEXT_INPUT', TODO
+  TEXT_INPUT = 'TEXT_INPUT'
   // TEXTAREA = 'TEXTAREA', TODO
   // IMAGE = 'IMAGE', TODO
   // GALLERY = 'GALLERY', TODO

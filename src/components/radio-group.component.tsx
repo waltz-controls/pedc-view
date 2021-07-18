@@ -6,13 +6,13 @@ type RadioGroupComponentProps = {
     label: string;
     value: any;
   }>,
-  selectedValue: any;
+  value: any;
   label: string;
   onChange(value: any): void
 };
 
 export function RadioGroupComponent(props: RadioGroupComponentProps) {
-  const [value, setValue] = useState(props.selectedValue);
+  const [value, setValue] = useState(props.value);
 
   useEffect(() => {
     props.onChange(value);

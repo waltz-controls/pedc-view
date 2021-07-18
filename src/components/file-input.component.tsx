@@ -14,7 +14,6 @@ type FileInputComponentProps = {
 
 
 export function FileInputComponent(props: FileInputComponentProps) {
-  const [placeholder, setPlaceholder] = useState(props.placeholder || 'Choose file...');
   const [currentFile, setCurrentFile] = useState<File>();
 
   // --- Create file from dataUrl
@@ -38,8 +37,6 @@ export function FileInputComponent(props: FileInputComponentProps) {
 
     const {name, type} = currentFile;
 
-    setPlaceholder(name);
-
     FileInputService
       .toBase64(currentFile)
       .then((dataUrl) => {
@@ -52,7 +49,7 @@ export function FileInputComponent(props: FileInputComponentProps) {
       <FileInput
         {...props}
         onChange={(value: any) => setCurrentFile(value.target.files[0])}
-        text={placeholder}
+        text={(currentFile && currentFile.name) || props.placeholder}
       />
 
       {currentFile && <Button
