@@ -6,6 +6,7 @@ type TextInputComponentProps = {
   helperText: string;
   labelInfo: string;
   value: string;
+  placeholder: string;
   onChange(value: string): void;
 };
 
@@ -14,7 +15,7 @@ export function TextInputComponent(props: TextInputComponentProps) {
 
   useEffect(() => {
     props.onChange(value);
-  }, [value])
+  }, [value]);
 
   return (
     <FormGroup
@@ -23,8 +24,8 @@ export function TextInputComponent(props: TextInputComponentProps) {
       labelInfo={props.labelInfo}
     >
       <InputGroup
-        {...props}
-        onChange={(e) => setValue(e.target.value || '')}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder={props.placeholder}
         value={value}
       />
     </FormGroup>
