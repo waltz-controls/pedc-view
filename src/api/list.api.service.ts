@@ -38,8 +38,12 @@ export default class ListApiService {
     return documents.find((document: any) => document.id === id);
   }
 
-  public findAll(): any {
-    return this.readLocalStorage();
+  public findAll(): Promise<any[]> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(this.readLocalStorage());
+      }, 700)
+    });
   }
 
   public removeOne(id: string): void {
