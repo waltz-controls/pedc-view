@@ -8,6 +8,7 @@ type TextInputComponentProps = {
   value: string;
   placeholder: string;
   onChange(value: string): void;
+  small: boolean;
 };
 
 export function TextInputComponent(props: TextInputComponentProps) {
@@ -26,7 +27,8 @@ export function TextInputComponent(props: TextInputComponentProps) {
       <InputGroup
         onChange={(e) => setValue(e.target.value)}
         placeholder={props.placeholder}
-        value={value}
+        value={value || ''}
+        small={props.small}
       />
     </FormGroup>
   )

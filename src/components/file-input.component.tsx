@@ -4,6 +4,8 @@ import FileInputService from "./file-input.service";
 
 type FileInputComponentProps = {
   placeholder: string,
+  buttonText: string;
+  linkText: string;
   file: {
     name: string;
     type: string;
@@ -47,16 +49,16 @@ export function FileInputComponent(props: FileInputComponentProps) {
   return (
     <>
       <FileInput
-        {...props}
         onChange={(value: any) => setCurrentFile(value.target.files[0])}
         text={(currentFile && currentFile.name) || props.placeholder}
+        buttonText={props.buttonText}
       />
 
       {currentFile && <Button
         small
         onClick={() => FileInputService.loadFile(currentFile)}
         minimal
-        text={"Download file"}
+        text={props.linkText || "Download file"}
         style={{marginBottom: -5, marginLeft: 8}}
       />}
     </>
