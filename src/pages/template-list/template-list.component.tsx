@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './template-list.component.scss';
 import TemplateApiService from "../../api/template.api.service";
-import {Button, Card, H3, H4, Intent, Spinner} from '@blueprintjs/core';
+import {Button, Card, ControlGroup, H3, H4, InputGroup, Intent, Spinner} from '@blueprintjs/core';
 import {useHistory} from 'react-router-dom';
 import DocumentApiService from "../../api/document.api.service";
 import {ListApiServiceType} from "../../api/list.api.service";
@@ -10,13 +10,14 @@ import {ListApiServiceType} from "../../api/list.api.service";
 export default function TemplateListComponent() {
   const [isPending, setPending] = useState(true);
   const [templates, setTemplates] = useState<any[]>([]);
+  const [documentTitle, setDocumentTitle] = useState<string>('');
   const history = useHistory();
 
   const templateApi = new TemplateApiService(ListApiServiceType.TEMPLATE);
   const documentApi = new DocumentApiService(ListApiServiceType.DOCUMENT);
 
   useEffect(() => {
-    templateApi.findAll().then((templates ) => {
+    templateApi.findAll().then((templates) => {
       setPending(false);
       setTemplates(templates);
     });
@@ -28,7 +29,7 @@ export default function TemplateListComponent() {
 
       {isPending && (
         <div className={"templates-spinner"}>
-          <Spinner size={50} />
+          <Spinner size={50}/>
         </div>
       )}
 
@@ -36,27 +37,37 @@ export default function TemplateListComponent() {
         <Card key={index} className="templates-block">
           <H4>{template.id} - {template.title}</H4>
 
-          <Button
-            intent={Intent.PRIMARY}
-            onClick={() => {
-              const id = documentApi.insertOne(template.blocks);
-              history.push(`/document/${id}`);
-            }}
-          >
-            Create document
-          </Button>
+          <ControlGroup>
 
-          &nbsp;
+            <InputGroup
+              placeholder={"Document title"}
+              value={documentTitle}
+              onChange={(e: any) => setDocumentTitle(e.target.value)}
+            />
 
-          <Button
-            intent={Intent.DANGER}
-            onClick={() => {
-              setPending(true);
-              templateApi.removeOne(template.id);
-            }}
-          >
-            Remove template
-          </Button>
+            <Button
+              small
+              intent={Intent.PRIMARY}
+              disabled={!Boolean(documentTitle)}
+              onClick={() => {
+                const id = documentApi.insertOne(documentTitle, template.blocks);
+                history.push(`/document/${id}`);
+              }}
+            >
+              Create document
+            </Button>
+
+            <Button
+              small
+              intent={Intent.DANGER}
+              onClick={() => {
+                setPending(true);
+                templateApi.removeOne(template.id);
+              }}
+            >
+              Remove template
+            </Button>
+          </ControlGroup>
         </Card>
       ))}
     </div>

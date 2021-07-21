@@ -2,13 +2,13 @@ import React, {useEffect, useState} from "react";
 import {FormGroup, InputGroup} from "@blueprintjs/core";
 
 type TextInputComponentProps = {
-  label: string;
-  helperText: string;
-  labelInfo: string;
+  label?: string;
+  helperText?: string;
+  labelInfo?: string;
   value: string;
-  placeholder: string;
+  placeholder?: string;
   onChange(value: string): void;
-  small: boolean;
+  small?: boolean;
 };
 
 export function TextInputComponent(props: TextInputComponentProps) {

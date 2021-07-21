@@ -21,21 +21,21 @@ export default class ListApiService {
     localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(data));
   }
 
-  public insertOne(blocks: any[]): string {
-    const documents = this.readLocalStorage();
+  public insertOne(title: string, blocks: any[]): string {
+    const items = this.readLocalStorage();
     const id = String(Date.now());
 
-    documents.push({id, blocks});
+    items.push({id, title, blocks});
 
-    this.writeLocalStorage(documents);
+    this.writeLocalStorage(items);
 
     return id;
   }
 
   public findOne(id: string): any {
-    const documents = this.readLocalStorage();
+    const items = this.readLocalStorage();
 
-    return documents.find((document: any) => document.id === id);
+    return items.find((item: any) => item.id === id);
   }
 
   public findAll(): Promise<any[]> {
@@ -47,24 +47,24 @@ export default class ListApiService {
   }
 
   public removeOne(id: string): void {
-    const documents = this.readLocalStorage();
+    const items = this.readLocalStorage();
 
-    const updatedDocuments = documents.filter((document: any) => document.id !== id);
+    const updatedItems = items.filter((item: any) => item.id !== id);
 
-    this.writeLocalStorage(updatedDocuments);
+    this.writeLocalStorage(updatedItems);
   }
 
   public updateOne(id: string, data: any): void {
-    const documents = this.readLocalStorage();
+    const items = this.readLocalStorage();
 
-    const updatedDocuments = documents.map((document: any) => {
-      if (document.id === id) {
-        return {...document, ...data};
+    const updatedItems = items.map((item: any) => {
+      if (item.id === id) {
+        return {...item, ...data};
       }
 
-      return document;
+      return item;
     });
 
-    this.writeLocalStorage(updatedDocuments);
+    this.writeLocalStorage(updatedItems);
   }
 }

@@ -43,7 +43,9 @@ export default function GeneratorComponent() {
       <div className="generator-document">
         <TemplateGeneratorComponent
           blocks={items}
-          saveDocument={() => api.insertOne(items)}
+          saveDocument={(title: string) => {
+            api.insertOne(title, items);
+          }}
           clearDocument={() => setItems([])}
         />
       </div>

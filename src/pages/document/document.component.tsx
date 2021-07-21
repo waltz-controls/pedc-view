@@ -53,7 +53,7 @@ export default function DocumentComponent() {
 
   return (
     <div className={"item-container"}>
-      <H3>Document: {id}</H3>
+      <H3>{id} - {document.title}</H3>
 
       <form>
         {blocks.map((block: any, index: number) => (
