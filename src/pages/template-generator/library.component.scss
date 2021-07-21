@@ -5,9 +5,25 @@
 
   &-list {
     margin-bottom: 20px;
+  }
 
-    &-item {
-      margin-bottom: 20px;
+  &-item {
+    margin-bottom: 20px;
+
+    &__fields {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 0;
+    }
+
+    &__props {
+
+    }
+
+    &__control {
+
     }
   }
 }

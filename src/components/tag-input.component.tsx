@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {TagInput} from "@blueprintjs/core";
+import {FormGroup, TagInput} from "@blueprintjs/core";
 
 type TagInputComponentProps = {
+  label: string;
+  helperText: string;
+  labelInfo: string;
+  placeholder: string;
   values: any[],
   onChange(values: string[]): void
 };
@@ -14,10 +18,16 @@ export function TagInputComponent(props: TagInputComponentProps) {
   }, [values])
 
   return (
-    <TagInput
-      {...props}
-      onChange={(values) => setValues(values)}
-      values={values || []}
-    />
+    <FormGroup
+      label={props.label}
+      helperText={props.helperText}
+      labelInfo={props.labelInfo}
+    >
+      <TagInput
+        placeholder={props.placeholder}
+        onChange={(values) => setValues(values)}
+        values={values || []}
+      />
+    </FormGroup>
   )
 }

@@ -1,39 +1,16 @@
 import React from 'react';
 import './library.component.scss';
-import {
-  Callout,
-  Card,
-  H3,
-} from "@blueprintjs/core";
-import {ComponentType, LibraryComponentType} from "../../types";
-import ComponentService from "../../services/component.service";
+import {Callout, Card, H3,} from "@blueprintjs/core";
+import {ComponentType} from "../../types";
+import ConfigurationComponent from "./configuration.component";
+
 
 type LibraryComponentProps = {
-  select(value: ComponentType): void
+  select(value: ComponentType): void;
+  components: ComponentType[];
 };
 
-function getAllComponents(): any[] {
-  return [
-    LibraryComponentType.FILE_INPUT,
-    LibraryComponentType.CHECKBOX,
-    LibraryComponentType.SWITCH,
-    LibraryComponentType.NUMERIC_INPUT,
-    LibraryComponentType.TAG_INPUT,
-    LibraryComponentType.RADIO_GROUP,
-    LibraryComponentType.SLIDER,
-  ].map((type) => {
-    return {
-      type,
-      instance: ComponentService.getInstanceByType(type),
-      props: ComponentService.getDefaultPropsByType(type)
-    }
-  });
-}
-
 export default function LibraryComponent(props: LibraryComponentProps) {
-
-  const components = getAllComponents();
-
   return (
     <>
       <H3>Components library</H3>
@@ -43,21 +20,19 @@ export default function LibraryComponent(props: LibraryComponentProps) {
       </Callout>
 
       <div className={"library-list"}>
-        {components.map((component: ComponentType, index) => (
+        {props.components.map((component: any, index) => (
           <Card
             key={index}
-            className="library-list-item"
+            className="library-item"
             interactive
-            onClick={() => props.select(component)}
           >
-            <component.instance
-              {...component.props}
-              onClick={(e: React.MouseEvent<HTMLElement>) => {
-                e.preventDefault();
-                e.stopPropagation();
+            <ConfigurationComponent
+              component={component}
+              fields={component.fields}
+              onAdd={(component: ComponentType) => {
+                props.select(component);
               }}
-            >
-            </component.instance>
+            />
           </Card>
         ))}
       </div>

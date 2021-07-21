@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Slider} from "@blueprintjs/core";
+import {FormGroup, Slider} from "@blueprintjs/core";
 
 type SliderComponentProps = {
+  label: string;
+  helperText: string;
+  labelInfo: string;
   value: number,
   onChange(value: number): void
 };
@@ -14,10 +17,16 @@ export function SliderComponent(props: SliderComponentProps) {
   }, [value])
 
   return (
-    <Slider
-      {...props}
-      onChange={(value) => setValue(value)}
-      value={value}
-    />
+    <FormGroup
+      label={props.label}
+      helperText={props.helperText}
+      labelInfo={props.labelInfo}
+    >
+      <Slider
+        {...props}
+        onChange={(value) => setValue(value)}
+        value={value}
+      />
+    </FormGroup>
   )
 }
