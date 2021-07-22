@@ -13,7 +13,7 @@ function getAllComponents(): any[] {
     LibraryComponentType.FILE_INPUT,
     LibraryComponentType.CHECKBOX,
     LibraryComponentType.SWITCH,
-    // LibraryComponentType.NUMERIC_INPUT,
+    LibraryComponentType.NUMERIC_INPUT,
     LibraryComponentType.TAG_INPUT,
     LibraryComponentType.RADIO_GROUP,
     LibraryComponentType.SLIDER,

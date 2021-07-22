@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {ComponentType, LibraryComponentType} from "../../types";
 import ComponentService from "../../services/component.service";
-import {Button, ButtonGroup} from "@blueprintjs/core";
+import {Button, ButtonGroup, Collapse, H4, H5, H6} from "@blueprintjs/core";
 import './configuration.component.scss';
 
 function preventComponentInteraction(e: React.MouseEvent<HTMLElement>): void {
@@ -59,6 +59,8 @@ export default function ConfigurationComponent(props: ConfigurationComponentProp
       </div>
 
       <div className={"configuration-fields"}>
+        <H6>Settings</H6>
+
         <form>
           {showFields && props.fields.map((field, index) => {
 
@@ -71,8 +73,8 @@ export default function ConfigurationComponent(props: ConfigurationComponentProp
                 key={field.key}
                 value={_value}
                 onChange={(value: any) => {
-                  if(field.type === LibraryComponentType.TAG_INPUT && value){
-                    value = value.map((_value: any) => ({ label: _value, value: _value }));
+                  if (field.type === LibraryComponentType.TAG_INPUT && value) {
+                    value = value.map((_value: any) => ({label: _value, value: _value}));
                   }
 
                   setCustomProps({

@@ -1,10 +1,11 @@
 import {LibraryComponentType} from "../types";
-import {Alignment, Checkbox, NumericInput, Switch} from "@blueprintjs/core";
+import {Alignment, Checkbox, Switch} from "@blueprintjs/core";
 import {RadioGroupComponent} from "../components/radio-group.component";
 import {TagInputComponent} from "../components/tag-input.component";
 import {SliderComponent} from "../components/slider.component";
 import {FileInputComponent} from "../components/file-input.component";
 import {TextInputComponent} from "../components/text-input.component";
+import {NumericInputComponent} from "../components/numeric-input.component";
 
 
 export default class ComponentService {
@@ -13,7 +14,7 @@ export default class ComponentService {
       [LibraryComponentType.FILE_INPUT]: FileInputComponent,
       [LibraryComponentType.CHECKBOX]: Checkbox,
       [LibraryComponentType.SWITCH]: Switch,
-      [LibraryComponentType.NUMERIC_INPUT]: NumericInput, // TODO - make as component with state
+      [LibraryComponentType.NUMERIC_INPUT]: NumericInputComponent,
       [LibraryComponentType.TAG_INPUT]: TagInputComponent,
       [LibraryComponentType.RADIO_GROUP]: RadioGroupComponent,
       [LibraryComponentType.SLIDER]: SliderComponent,
@@ -38,7 +39,9 @@ export default class ComponentService {
         label: 'Switch Label',
       },
       [LibraryComponentType.NUMERIC_INPUT]: {
-        placeholder: "Enter a number..."
+        label: "Numeric Label",
+        placeholder: "Enter a number...",
+        onChange: () => {}
       },
       [LibraryComponentType.TAG_INPUT]: {
         placeholder: 'Values...',
@@ -146,9 +149,18 @@ export default class ComponentService {
         key: 'label',
         props: { small: true }
       }]],
+      [LibraryComponentType.NUMERIC_INPUT, [{
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'label',
+        props: { small: true }
+      }, {
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'placeholder',
+        props: { small: true }
+      }]]
     ]);
 
-    // [LibraryComponentType.NUMERIC_INPUT]: NumericInput,
+
     // [LibraryComponentType.TAG_INPUT]: TagInputComponent,
     // [LibraryComponentType.RADIO_GROUP]: RadioGroupComponent,
     // [LibraryComponentType.SLIDER]: SliderComponent,

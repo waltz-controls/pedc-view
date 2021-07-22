@@ -8,11 +8,35 @@ import {ComponentType, RawComponentType} from "../../types";
 import './document.component.scss';
 import {useHistory, useParams} from 'react-router-dom';
 import DocumentApiService from "../../api/document.api.service";
-import {useForm} from "react-hook-form";
+import {Control, Controller, useForm} from "react-hook-form";
 import {ListApiServiceType} from "../../api/list.api.service";
 import ComponentService from "../../services/component.service";
-import renderComponentByType from "../../services/renderComponentByType";
 
+
+function renderComponentByType(
+  control: Control,
+  name: string,
+  rawComponent: RawComponentType
+): React.ComponentElement<any, any> {
+
+  const _instance = ComponentService.getInstanceByType(rawComponent.type);
+
+  return (
+    <Controller
+      key={name}
+      control={control}
+      name={name}
+      render={({field}: any) => {
+        return (
+          <_instance
+            {...rawComponent.props}
+            onChange={field.onChange}
+          />
+        );
+      }}
+    />
+  )
+}
 
 function prepareBlocksData(formData: any, document: any): ComponentType[] {
   return document.blocks
@@ -49,6 +73,8 @@ export default function DocumentComponent() {
     api.updateOne(document.id, {
       blocks: prepareBlocksData(formValues, document)
     });
+
+    console.log(prepareBlocksData(formValues, document));
   }
 
   return (
