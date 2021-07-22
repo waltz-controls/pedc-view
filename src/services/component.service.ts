@@ -6,6 +6,7 @@ import {SliderComponent} from "../components/slider.component";
 import {FileInputComponent} from "../components/file-input.component";
 import {TextInputComponent} from "../components/text-input.component";
 import {NumericInputComponent} from "../components/numeric-input.component";
+import {TextAreaComponent} from "../components/textarea.component";
 
 
 export default class ComponentService {
@@ -19,6 +20,7 @@ export default class ComponentService {
       [LibraryComponentType.RADIO_GROUP]: RadioGroupComponent,
       [LibraryComponentType.SLIDER]: SliderComponent,
       [LibraryComponentType.TEXT_INPUT]: TextInputComponent,
+      [LibraryComponentType.TEXTAREA]: TextAreaComponent,
     }[type];
   }
 
@@ -62,12 +64,18 @@ export default class ComponentService {
         }
       },
       [LibraryComponentType.SLIDER]: {
-        label: 'Label',
+        label: 'Slider Label',
         onChange: () => {
         }
       },
       [LibraryComponentType.TEXT_INPUT]: {
-        label: 'Label',
+        label: 'Text Input Label',
+        placeholder: 'Placeholder',
+        onChange: () => {
+        },
+      },
+      [LibraryComponentType.TEXTAREA]: {
+        label: 'TextArea Label',
         placeholder: 'Placeholder',
         onChange: () => {
         },
@@ -85,6 +93,7 @@ export default class ComponentService {
       [LibraryComponentType.SWITCH]: {checked: value},
       [LibraryComponentType.SLIDER]: {value: value},
       [LibraryComponentType.TEXT_INPUT]: {value: value},
+      [LibraryComponentType.TEXTAREA]: {value: value},
     }[type] || {};
   }
 
@@ -157,13 +166,17 @@ export default class ComponentService {
         type: LibraryComponentType.TEXT_INPUT,
         key: 'placeholder',
         props: { small: true }
+      }]],
+      [LibraryComponentType.TEXTAREA, [{
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'label',
+        props: { small: true }
+      }, {
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'placeholder',
+        props: { small: true }
       }]]
     ]);
-
-
-    // [LibraryComponentType.TAG_INPUT]: TagInputComponent,
-    // [LibraryComponentType.RADIO_GROUP]: RadioGroupComponent,
-    // [LibraryComponentType.SLIDER]: SliderComponent,
 
     return configurations.get(type) || [];
   }

@@ -17,6 +17,7 @@ function getAllComponents(): any[] {
     LibraryComponentType.TAG_INPUT,
     LibraryComponentType.RADIO_GROUP,
     LibraryComponentType.SLIDER,
+    LibraryComponentType.TEXTAREA
   ].map((type) => {
     return {
       type,
