@@ -25,6 +25,7 @@ export function TextAreaComponent(props: TextAreaComponentProps) {
     >
       <TextArea
         fill
+        growVertically
         onChange={(e) => setValue(e.target.value)}
         placeholder={props.placeholder}
         value={value || ''}
