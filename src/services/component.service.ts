@@ -7,6 +7,7 @@ import {FileInputComponent} from "../components/file-input.component";
 import {TextInputComponent} from "../components/text-input.component";
 import {NumericInputComponent} from "../components/numeric-input.component";
 import {TextAreaComponent} from "../components/textarea.component";
+import {ImageComponent} from "../components/image.component";
 
 
 export default class ComponentService {
@@ -21,6 +22,7 @@ export default class ComponentService {
       [LibraryComponentType.SLIDER]: SliderComponent,
       [LibraryComponentType.TEXT_INPUT]: TextInputComponent,
       [LibraryComponentType.TEXTAREA]: TextAreaComponent,
+      [LibraryComponentType.IMAGE]: ImageComponent,
     }[type];
   }
 
@@ -30,7 +32,6 @@ export default class ComponentService {
         placeholder: 'Choose file...',
         buttonText: 'Browse',
         linkText: 'Download File',
-        label: 'bingo',
       },
       [LibraryComponentType.CHECKBOX]: {
         alignIndicator: Alignment.LEFT,
@@ -43,7 +44,8 @@ export default class ComponentService {
       [LibraryComponentType.NUMERIC_INPUT]: {
         label: "Numeric Label",
         placeholder: "Enter a number...",
-        onChange: () => {}
+        onChange: () => {
+        }
       },
       [LibraryComponentType.TAG_INPUT]: {
         placeholder: 'Values...',
@@ -80,6 +82,14 @@ export default class ComponentService {
         onChange: () => {
         },
       },
+      [LibraryComponentType.IMAGE]: {
+        placeholder: 'Choose image...',
+        buttonText: 'Browse',
+        linkText: 'Download File',
+        label: 'Image Label',
+        onChange: () => {
+        }
+      }
     }[type];
   }
 
@@ -94,6 +104,7 @@ export default class ComponentService {
       [LibraryComponentType.SLIDER]: {value: value},
       [LibraryComponentType.TEXT_INPUT]: {value: value},
       [LibraryComponentType.TEXTAREA]: {value: value},
+      [LibraryComponentType.IMAGE]: {file: value}
     }[type] || {};
   }
 
@@ -131,20 +142,20 @@ export default class ComponentService {
         key: 'label',
         props: {small: true},
       }]],
-      [LibraryComponentType.TAG_INPUT,[{
+      [LibraryComponentType.TAG_INPUT, [{
         type: LibraryComponentType.TEXT_INPUT,
         key: 'label',
-        props: { small: true }
+        props: {small: true}
       }, {
         type: LibraryComponentType.TEXT_INPUT,
         key: 'placeholder',
-        props: { small: true }
+        props: {small: true}
       }]],
-      [LibraryComponentType.RADIO_GROUP,[{
+      [LibraryComponentType.RADIO_GROUP, [{
         type: LibraryComponentType.TEXT_INPUT,
         key: 'label',
-        props: { small: true }
-      },{
+        props: {small: true}
+      }, {
         type: LibraryComponentType.TAG_INPUT,
         key: 'options',
         props: {
@@ -153,28 +164,41 @@ export default class ComponentService {
           helperText: 'Write option name and press enter'
         }
       }]],
-      [LibraryComponentType.SLIDER,[{
+      [LibraryComponentType.SLIDER, [{
         type: LibraryComponentType.TEXT_INPUT,
         key: 'label',
-        props: { small: true }
+        props: {small: true}
       }]],
       [LibraryComponentType.NUMERIC_INPUT, [{
         type: LibraryComponentType.TEXT_INPUT,
         key: 'label',
-        props: { small: true }
+        props: {small: true}
       }, {
         type: LibraryComponentType.TEXT_INPUT,
         key: 'placeholder',
-        props: { small: true }
+        props: {small: true}
       }]],
       [LibraryComponentType.TEXTAREA, [{
         type: LibraryComponentType.TEXT_INPUT,
         key: 'label',
-        props: { small: true }
+        props: {small: true}
       }, {
         type: LibraryComponentType.TEXT_INPUT,
         key: 'placeholder',
-        props: { small: true }
+        props: {small: true}
+      }]],
+      [LibraryComponentType.IMAGE, [{
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'placeholder',
+        props: {small: true},
+      }, {
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'buttonText',
+        props: {small: true},
+      }, {
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'linkText',
+        props: {small: true},
       }]]
     ]);
 

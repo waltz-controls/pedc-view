@@ -8,7 +8,7 @@ export enum LibraryComponentType {
   SLIDER = 'SLIDER',
   TEXT_INPUT = 'TEXT_INPUT',
   TEXTAREA = 'TEXTAREA',
-  // IMAGE = 'IMAGE', TODO
+  IMAGE = 'IMAGE',
   // GALLERY = 'GALLERY', TODO
   // DYNAMIC_FORM = 'DYNAMIC_FORM', TODO
 }

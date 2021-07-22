@@ -3,10 +3,10 @@ import {Button, FileInput} from "@blueprintjs/core";
 import FileInputService from "./file-input.service";
 
 type FileInputComponentProps = {
-  placeholder: string,
-  buttonText: string;
-  linkText: string;
-  file: {
+  placeholder?: string,
+  buttonText?: string;
+  linkText?: string;
+  file?: {
     name: string;
     type: string;
     dataUrl: string;
@@ -50,14 +50,14 @@ export function FileInputComponent(props: FileInputComponentProps) {
     <>
       <FileInput
         onChange={(value: any) => setCurrentFile(value.target.files[0])}
-        text={(currentFile && currentFile.name) || props.placeholder}
-        buttonText={props.buttonText}
+        text={(currentFile && currentFile.name) || props.placeholder || 'Choose file...'}
+        buttonText={props.buttonText || 'Browse'}
       />
 
       {currentFile && <Button
+        minimal
         small
         onClick={() => FileInputService.loadFile(currentFile)}
-        minimal
         text={props.linkText || "Download file"}
         style={{marginBottom: -5, marginLeft: 8}}
       />}
