@@ -16,7 +16,7 @@ export default function NavigationComponent(props: NavigationComponentProps) {
     <Navbar>
       <NavbarGroup align={Alignment.LEFT}>
         <NavbarHeading>
-          <strong>PED Collector</strong>
+          <strong>PEDC-WI</strong>
         </NavbarHeading>
       </NavbarGroup>
       <NavbarGroup align={Alignment.RIGHT}>

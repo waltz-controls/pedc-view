@@ -33,18 +33,19 @@ export default function TemplateListComponent() {
         </div>
       )}
 
+      {!isPending && <div className={"templates-input"}>
+        <InputGroup
+          placeholder={"Document title"}
+          value={documentTitle}
+          onChange={(e: any) => setDocumentTitle(e.target.value)}
+        />
+      </div>}
+
       {!isPending && templates.map((template: any, index: number) => (
         <Card key={index} className="templates-block">
           <H4>{template.id} - {template.title}</H4>
 
           <ControlGroup>
-
-            <InputGroup
-              placeholder={"Document title"}
-              value={documentTitle}
-              onChange={(e: any) => setDocumentTitle(e.target.value)}
-            />
-
             <Button
               small
               intent={Intent.PRIMARY}

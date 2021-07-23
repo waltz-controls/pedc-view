@@ -15,10 +15,6 @@ export default function LibraryComponent(props: LibraryComponentProps) {
     <>
       <H3>Components library</H3>
 
-      <Callout className={'library-desc'}>
-        Click on the component to add to the document template...
-      </Callout>
-
       <div className={"library-list"}>
         {props.components.map((component: any, index) => (
           <Card

@@ -32,6 +32,7 @@ export default class ComponentService {
         placeholder: 'Choose file...',
         buttonText: 'Browse',
         linkText: 'Download File',
+        onChange: () => {}
       },
       [LibraryComponentType.CHECKBOX]: {
         alignIndicator: Alignment.LEFT,
