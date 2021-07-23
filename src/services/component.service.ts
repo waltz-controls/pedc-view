@@ -71,6 +71,10 @@ export default class ComponentService {
       },
       [LibraryComponentType.SLIDER]: {
         label: 'Slider Label',
+        min: 0,
+        max: 10,
+        stepSize: 0.1,
+        labelStepSize: 1,
         onChange: () => {
         }
       },
@@ -181,6 +185,25 @@ export default class ComponentService {
         type: LibraryComponentType.TEXT_INPUT,
         key: 'label',
         props: {small: true}
+      },{
+        type: LibraryComponentType.NUMERIC_INPUT,
+        key: 'min',
+        props: {small: true, helperText: 'Min'}
+      },{
+        type: LibraryComponentType.NUMERIC_INPUT,
+        key: 'max',
+        props: {small: true, helperText: 'Max'}
+      },{
+        type: LibraryComponentType.NUMERIC_INPUT,
+        key: 'stepSize',
+        props: {small: true, helperText: 'Step size',
+          stepSize: 0.1,
+          minorStepSize: 0.1,
+        }
+      },{
+        type: LibraryComponentType.NUMERIC_INPUT,
+        key: 'labelStepSize',
+        props: {small: true, helperText: 'Label step size'}
       }]],
       [LibraryComponentType.NUMERIC_INPUT, [{
         type: LibraryComponentType.TEXT_INPUT,

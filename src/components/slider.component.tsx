@@ -5,8 +5,12 @@ type SliderComponentProps = {
   label: string;
   helperText: string;
   labelInfo: string;
-  value: number,
-  onChange(value: number): void
+  value: number;
+  min?: number;
+  max?: number;
+  stepSize?: number;
+  labelStepSize?: number;
+  onChange(value: number): void;
 };
 
 export function SliderComponent(props: SliderComponentProps) {
@@ -23,9 +27,12 @@ export function SliderComponent(props: SliderComponentProps) {
       labelInfo={props.labelInfo}
     >
       <Slider
-        {...props}
         onChange={(value) => setValue(value)}
         value={value}
+        min={props.min || 0}
+        max={props.max || 100}
+        stepSize={props.stepSize || 1}
+        labelStepSize={props.labelStepSize || 1}
       />
     </FormGroup>
   )
