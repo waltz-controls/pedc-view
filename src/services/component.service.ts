@@ -8,6 +8,7 @@ import {TextInputComponent} from "../components/text-input.component";
 import {NumericInputComponent} from "../components/numeric-input.component";
 import {TextAreaComponent} from "../components/textarea.component";
 import {ImageComponent} from "../components/image.component";
+import {GalleryComponent} from "../components/gallery.component";
 
 
 export default class ComponentService {
@@ -23,6 +24,7 @@ export default class ComponentService {
       [LibraryComponentType.TEXT_INPUT]: TextInputComponent,
       [LibraryComponentType.TEXTAREA]: TextAreaComponent,
       [LibraryComponentType.IMAGE]: ImageComponent,
+      [LibraryComponentType.GALLERY]: GalleryComponent,
     }[type];
   }
 
@@ -90,6 +92,14 @@ export default class ComponentService {
         label: 'Image Label',
         onChange: () => {
         }
+      },
+      [LibraryComponentType.GALLERY]: {
+        placeholder: 'Choose image...',
+        buttonText: 'Browse',
+        linkText: 'Download File',
+        label: 'Gallery Label',
+        onChange: () => {
+        }
       }
     }[type];
   }
@@ -105,7 +115,8 @@ export default class ComponentService {
       [LibraryComponentType.SLIDER]: {value: value},
       [LibraryComponentType.TEXT_INPUT]: {value: value},
       [LibraryComponentType.TEXTAREA]: {value: value},
-      [LibraryComponentType.IMAGE]: {file: value}
+      [LibraryComponentType.IMAGE]: {file: value},
+      [LibraryComponentType.GALLERY]: {files: value},
     }[type] || {};
   }
 
@@ -189,6 +200,19 @@ export default class ComponentService {
         props: {small: true}
       }]],
       [LibraryComponentType.IMAGE, [{
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'placeholder',
+        props: {small: true},
+      }, {
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'buttonText',
+        props: {small: true},
+      }, {
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'linkText',
+        props: {small: true},
+      }]],
+      [LibraryComponentType.GALLERY, [{
         type: LibraryComponentType.TEXT_INPUT,
         key: 'placeholder',
         props: {small: true},

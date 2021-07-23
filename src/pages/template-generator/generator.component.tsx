@@ -18,7 +18,8 @@ function getAllComponents(): any[] {
     LibraryComponentType.RADIO_GROUP,
     LibraryComponentType.SLIDER,
     LibraryComponentType.TEXTAREA,
-    LibraryComponentType.IMAGE
+    LibraryComponentType.IMAGE,
+    LibraryComponentType.GALLERY,
   ].map((type) => {
     return {
       type,
