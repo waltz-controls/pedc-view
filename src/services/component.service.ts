@@ -1,4 +1,4 @@
-import {LibraryComponentType} from "../types";
+import {ComponentType, LibraryComponentType} from "../types";
 import {Alignment, Checkbox, Switch} from "@blueprintjs/core";
 import {RadioGroupComponent} from "../components/radio-group.component";
 import {TagInputComponent} from "../components/tag-input.component";
@@ -34,7 +34,8 @@ export default class ComponentService {
         placeholder: 'Choose file...',
         buttonText: 'Browse',
         linkText: 'Download File',
-        onChange: () => {}
+        onChange: () => {
+        }
       },
       [LibraryComponentType.CHECKBOX]: {
         alignIndicator: Alignment.LEFT,
@@ -228,5 +229,28 @@ export default class ComponentService {
     ]);
 
     return configurations.get(type) || [];
+  }
+
+  static getAllComponentsForLibrary(): ComponentType[] {
+    return [
+      LibraryComponentType.TEXT_INPUT,
+      LibraryComponentType.FILE_INPUT,
+      LibraryComponentType.CHECKBOX,
+      LibraryComponentType.SWITCH,
+      LibraryComponentType.NUMERIC_INPUT,
+      LibraryComponentType.TAG_INPUT,
+      LibraryComponentType.RADIO_GROUP,
+      LibraryComponentType.SLIDER,
+      LibraryComponentType.TEXTAREA,
+      LibraryComponentType.IMAGE,
+      LibraryComponentType.GALLERY,
+    ].map((type) => {
+      return {
+        type,
+        instance: ComponentService.getInstanceByType(type),
+        props: ComponentService.getDefaultPropsByType(type),
+        fields: ComponentService.getConfigurationFieldsByType(type)
+      }
+    });
   }
 }

@@ -17,6 +17,7 @@ export type ComponentType = {
   type: LibraryComponentType;
   instance: any;
   props: any;
+  fields?: any[];
 }
 
 export type RawComponentType = {

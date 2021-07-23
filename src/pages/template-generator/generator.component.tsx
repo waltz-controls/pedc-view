@@ -2,38 +2,16 @@ import React, {useState} from 'react';
 import './generator.component.scss';
 import LibraryComponent from "./library.component";
 import TemplateGeneratorComponent from "./template-generator.component";
-import {ComponentType, LibraryComponentType} from "../../types";
+import {ComponentType} from "../../types";
 import TemplateApiService from "../../api/template.api.service";
 import {ListApiServiceType} from "../../api/list.api.service";
 import ComponentService from "../../services/component.service";
 
-function getAllComponents(): any[] {
-  return [
-    LibraryComponentType.TEXT_INPUT,
-    LibraryComponentType.FILE_INPUT,
-    LibraryComponentType.CHECKBOX,
-    LibraryComponentType.SWITCH,
-    LibraryComponentType.NUMERIC_INPUT,
-    LibraryComponentType.TAG_INPUT,
-    LibraryComponentType.RADIO_GROUP,
-    LibraryComponentType.SLIDER,
-    LibraryComponentType.TEXTAREA,
-    LibraryComponentType.IMAGE,
-    LibraryComponentType.GALLERY,
-  ].map((type) => {
-    return {
-      type,
-      instance: ComponentService.getInstanceByType(type),
-      props: ComponentService.getDefaultPropsByType(type),
-      fields: ComponentService.getConfigurationFieldsByType(type)
-    }
-  });
-}
 
 export default function GeneratorComponent() {
   const api = new TemplateApiService(ListApiServiceType.TEMPLATE);
   const [items, setItems] = useState<ComponentType[]>([]);
-  const components = getAllComponents();
+  const components = ComponentService.getAllComponentsForLibrary();
 
   return (
     <div className="generator-container">
