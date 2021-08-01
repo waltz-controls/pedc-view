@@ -1,5 +1,5 @@
 import {ComponentType, LibraryComponentType} from "../types";
-import {Alignment, Checkbox, Switch} from "@blueprintjs/core";
+import {Alignment} from "@blueprintjs/core";
 import {RadioGroupComponent} from "../components/radio-group.component";
 import {TagInputComponent} from "../components/tag-input.component";
 import {SliderComponent} from "../components/slider.component";
@@ -9,14 +9,16 @@ import {NumericInputComponent} from "../components/numeric-input.component";
 import {TextAreaComponent} from "../components/textarea.component";
 import {ImageComponent} from "../components/image.component";
 import {GalleryComponent} from "../components/gallery.component";
+import {CheckboxComponent} from "../components/checkbox.component";
+import {SwitchComponent} from "../components/switch.component";
 
 
 export default class ComponentService {
   static getInstanceByType(type: LibraryComponentType) {
     return {
       [LibraryComponentType.FILE_INPUT]: FileInputComponent,
-      [LibraryComponentType.CHECKBOX]: Checkbox,
-      [LibraryComponentType.SWITCH]: Switch,
+      [LibraryComponentType.CHECKBOX]: CheckboxComponent,
+      [LibraryComponentType.SWITCH]: SwitchComponent,
       [LibraryComponentType.NUMERIC_INPUT]: NumericInputComponent,
       [LibraryComponentType.TAG_INPUT]: TagInputComponent,
       [LibraryComponentType.RADIO_GROUP]: RadioGroupComponent,
@@ -107,22 +109,6 @@ export default class ComponentService {
         }
       }
     }[type];
-  }
-
-  static mapValueToPropByType(type: LibraryComponentType, value: any) {
-    return {
-      [LibraryComponentType.NUMERIC_INPUT]: {value: value},
-      [LibraryComponentType.CHECKBOX]: {checked: value},
-      [LibraryComponentType.FILE_INPUT]: {file: value},
-      [LibraryComponentType.TAG_INPUT]: {values: value},
-      [LibraryComponentType.RADIO_GROUP]: {value: value},
-      [LibraryComponentType.SWITCH]: {checked: value},
-      [LibraryComponentType.SLIDER]: {value: value},
-      [LibraryComponentType.TEXT_INPUT]: {value: value},
-      [LibraryComponentType.TEXTAREA]: {value: value},
-      [LibraryComponentType.IMAGE]: {file: value},
-      [LibraryComponentType.GALLERY]: {files: value},
-    }[type] || {};
   }
 
   static getConfigurationFieldsByType(type: LibraryComponentType): any {
