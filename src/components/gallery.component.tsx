@@ -19,6 +19,7 @@ type GalleryComponentProps = {
   linkText?: string;
 };
 
+// TODO - add remove file logic
 
 export function GalleryComponent(props: GalleryComponentProps) {
   const [files, setFiles] = useState<FileType[]>(props.files || []);

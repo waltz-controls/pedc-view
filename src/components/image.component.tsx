@@ -18,6 +18,8 @@ type ImageComponentProps = {
   linkText?: string;
 };
 
+// TODO - add remove file logic
+
 export function ImageComponent(props: ImageComponentProps) {
   const [file, setFile] = useState(props.file);
 

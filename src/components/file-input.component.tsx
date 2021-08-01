@@ -14,6 +14,7 @@ type FileInputComponentProps = {
   onChange(value: any): void
 };
 
+// TODO - add remove file logic
 
 export function FileInputComponent(props: FileInputComponentProps) {
   const [currentFile, setCurrentFile] = useState<File>();

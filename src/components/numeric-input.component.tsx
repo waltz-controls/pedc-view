@@ -15,7 +15,7 @@ type NumericInputComponentProps = {
 };
 
 export function NumericInputComponent(props: NumericInputComponentProps) {
-  const [value, setValue] = useState(String(props.value));
+  const [value, setValue] = useState(String(props.value || 0));
 
   useEffect(() => {
     props.onChange(Number(value));
