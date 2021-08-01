@@ -14,10 +14,12 @@ export enum LibraryComponentType {
 }
 
 export type ComponentType = {
-  type: LibraryComponentType;
-  instance: any;
-  props: any;
+  id?: number;
+  page?: number;
+  instance?: any;
   fields?: any[];
+  type: LibraryComponentType;
+  props: any;
 }
 
 export type RawComponentType = {

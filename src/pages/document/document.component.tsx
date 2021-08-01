@@ -1,89 +1,123 @@
-import React from 'react';
-import {
-  Button,
-  H3,
-  Intent,
-} from "@blueprintjs/core";
-import {ComponentType, RawComponentType} from "../../types";
+import React, {useEffect, useState} from 'react';
+import {Button, H3, Intent,} from "@blueprintjs/core";
+import {ComponentType, LibraryComponentType} from "../../types";
 import './document.component.scss';
 import {useHistory, useParams} from 'react-router-dom';
 import DocumentApiService from "../../api/document.api.service";
-import {Control, Controller, useForm} from "react-hook-form";
 import {ListApiServiceType} from "../../api/list.api.service";
 import ComponentService from "../../services/component.service";
 
 
-function renderComponentByType(
-  control: Control,
-  name: string,
-  rawComponent: RawComponentType
-): React.ComponentElement<any, any> {
-
-  const _instance = ComponentService.getInstanceByType(rawComponent.type);
-
-  return (
-    <Controller
-      key={name}
-      control={control}
-      name={name}
-      render={({field}: any) => {
-        return (
-          <_instance
-            {...rawComponent.props}
-            onChange={field.onChange}
-          />
-        );
-      }}
-    />
-  )
+function getDocumentMaxPage(blocks: any): number {
+  return blocks
+    .map((block: any) => block.page)
+    .sort()
+    .pop();
 }
 
-function prepareBlocksData(formData: any, document: any): ComponentType[] {
-  return document.blocks
-    .map((block: RawComponentType, index: number) => {
-      if (formData[index] === undefined) {
-        return block;
-      }
+function getPagesConfiguration(_current: number, _limit: number): any[] {
+  return Array.from(Array(_limit), (v, idx) => {
+    const index = idx + 1;
+    const intent = index === _current ? Intent.PRIMARY : Intent.NONE;
 
-      const customProps = ComponentService.mapValueToPropByType(block.type, formData[index]);
-      const updatedProps = {...block.props, ...customProps};
-
-      return {
-        ...block,
-        props: updatedProps
-      };
-    });
+    return {
+      index,
+      intent
+    }
+  });
 }
-
 
 export default function DocumentComponent() {
-  const {watch, control} = useForm();
-
-  const formValues = watch();
+  const params: any = useParams();
   const history = useHistory();
-  const {id}: any = useParams();
   const api = new DocumentApiService(ListApiServiceType.DOCUMENT);
-  const document = api.findOne(id);
 
-  const blocks: any = prepareBlocksData(formValues, document).map((component: ComponentType, index: number) => {
-    return renderComponentByType(control, String(index), component);
-  });
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [initialMaxPage, setInitialMaxPage] = useState<number>(1);
+  const [document, setDocument] = useState<any>({blocks: []});
+  const [isPending, setPending] = useState<any>(true);
+  const [blocks, setBlocks] = useState<ComponentType[]>([]);
 
-  const submitFunction = () => {
-    api.updateOne(document.id, {
-      blocks: prepareBlocksData(formValues, document)
+  // document
+  useEffect(() => {
+    const document = api.findOne(params.id);
+    const initialMaxPage = getDocumentMaxPage(document.blocks);
+
+    setDocument(document);
+    setInitialMaxPage(initialMaxPage);
+    setPending(false);
+  }, [isPending]);
+
+  // blocks
+  useEffect(() => {
+    const documentBlocks = document.blocks.map((component: ComponentType) => {
+      return {
+        ...component,
+        instance: ComponentService.getInstanceByType(component.type)
+      };
     });
 
-    console.log(prepareBlocksData(formValues, document));
-  }
+    setBlocks(documentBlocks);
+  }, [document, currentPage])
+
+  const pages = getPagesConfiguration(currentPage, initialMaxPage);
+
+  const filteredBlocks = blocks.filter((block: ComponentType) => block.page === currentPage)
 
   return (
     <div className={"item-container"}>
-      <H3>{id} - {document.title}</H3>
+      <H3>{params.id} - {document.title}</H3>
+
+      {isPending && 'pending...'}
+
+      <div>
+        {pages.map((page) => {
+          return (
+            <Button
+              minimal
+              key={page.index}
+              intent={page.intent}
+              onClick={() => setCurrentPage(page.index)}
+            >{page.index}
+            </Button>
+          )
+        })}
+      </div>
+
+      <br/>
 
       <form>
-        {blocks.map((block: any, index: number) => (
-          <div key={index} className={"item-block"}>{block}</div>
+        {filteredBlocks.map((block: ComponentType) => (
+          <div
+            key={block.id}
+            className={"item-block"}
+          >
+            <block.instance
+              {...block.props}
+              onChange={(value: any) => {
+                const updatedBlocks = blocks.map((_block) => {
+                  if (_block.id === block.id) {
+
+                    // TODO - refactor components with files
+
+                    if(_block.type === LibraryComponentType.FILE_INPUT){
+                      _block.props.file = value;
+                    } else if (_block.type === LibraryComponentType.IMAGE){
+                      _block.props.file = value;
+                    } else if (_block.type === LibraryComponentType.GALLERY){
+                      _block.props.files = value;
+                    } else {
+                      _block.props.value = value;
+                    }
+                  }
+
+                  return _block;
+                });
+
+                setBlocks(updatedBlocks);
+              }}
+            />
+          </div>
         ))}
 
         <Button
@@ -97,7 +131,7 @@ export default function DocumentComponent() {
         <Button
           intent={Intent.PRIMARY}
           text={'Update document'}
-          onClick={submitFunction}
+          onClick={() => api.updateOne(document.id, {blocks})}
         />
 
       </form>
