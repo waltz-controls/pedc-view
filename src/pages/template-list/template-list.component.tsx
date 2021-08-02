@@ -51,8 +51,12 @@ export default function TemplateListComponent() {
               intent={Intent.PRIMARY}
               disabled={!Boolean(documentTitle)}
               onClick={() => {
-                const id = documentApi.insertOne(documentTitle, template.blocks);
-                history.push(`/document/${id}`);
+                documentApi
+                  .insertOne(documentTitle, template.blocks)
+                  .then((id) => {
+                    console.log('Document created:', id, documentTitle);
+                    history.push(`/document/${id}`);
+                  });
               }}
             >
               Create document
@@ -63,7 +67,9 @@ export default function TemplateListComponent() {
               intent={Intent.DANGER}
               onClick={() => {
                 setPending(true);
-                templateApi.removeOne(template.id);
+                templateApi.removeOne(template.id).then(() => {
+                  console.log('Template removed:', template.id, template.title);
+                });
               }}
             >
               Remove template

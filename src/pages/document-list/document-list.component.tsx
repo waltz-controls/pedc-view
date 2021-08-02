@@ -26,7 +26,7 @@ export default function DocumentListComponent() {
 
         {isPending && (
           <div className={"documents-spinner"}>
-          <Spinner size={50} />
+            <Spinner size={50}/>
           </div>
         )}
 
@@ -47,7 +47,9 @@ export default function DocumentListComponent() {
               intent={Intent.DANGER}
               onClick={() => {
                 setPending(true);
-                api.removeOne(doc.id);
+                api.removeOne(doc.id).then(() => {
+                  console.log('Document removed:', doc.id, doc.title);
+                });
               }}
             >
               Remove document

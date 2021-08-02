@@ -88,7 +88,9 @@ export default function GeneratorComponent() {
               return item;
             });
 
-            api.insertOne(title, updatedItems);
+            api.insertOne(title, updatedItems).then(() => {
+              console.log('Template created:', title);
+            });
           }}
           clearDocument={() => setItems([])}
         />

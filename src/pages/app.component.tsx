@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import './app.component.scss';
 import NavigationComponent from "./navigation.component";
@@ -15,7 +15,7 @@ function AppComponent() {
     {to: '/templates', title: 'Templates'},
     {to: '/documents', title: 'Documents'},
     {to: '/', title: 'Home'},
-  ]
+  ];
 
   return (
     <Router>
@@ -27,7 +27,7 @@ function AppComponent() {
         <Route path="/documents"><DocumentListComponent/></Route>
         <Route path="/document/:id"><DocumentComponent/></Route>
         <Route path="/">
-          <div style={{ padding: 20}}>
+          <div style={{padding: 20}}>
             <H3>Welcome!</H3>
           </div>
         </Route>

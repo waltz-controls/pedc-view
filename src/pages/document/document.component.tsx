@@ -40,12 +40,13 @@ export default function DocumentComponent() {
 
   // document
   useEffect(() => {
-    const document = api.findOne(params.id);
-    const initialMaxPage = getDocumentMaxPage(document.blocks);
+    api.findOne(params.id).then((document) => {
+      const initialMaxPage = getDocumentMaxPage(document.blocks);
 
-    setDocument(document);
-    setInitialMaxPage(initialMaxPage);
-    setPending(false);
+      setDocument(document);
+      setInitialMaxPage(initialMaxPage);
+      setPending(false);
+    });
   }, [isPending]);
 
   // blocks
@@ -100,11 +101,11 @@ export default function DocumentComponent() {
 
                     // TODO - refactor components with files
 
-                    if(_block.type === LibraryComponentType.FILE_INPUT){
+                    if (_block.type === LibraryComponentType.FILE_INPUT) {
                       _block.props.file = value;
-                    } else if (_block.type === LibraryComponentType.IMAGE){
+                    } else if (_block.type === LibraryComponentType.IMAGE) {
                       _block.props.file = value;
-                    } else if (_block.type === LibraryComponentType.GALLERY){
+                    } else if (_block.type === LibraryComponentType.GALLERY) {
                       _block.props.files = value;
                     } else {
                       _block.props.value = value;
@@ -131,7 +132,11 @@ export default function DocumentComponent() {
         <Button
           intent={Intent.PRIMARY}
           text={'Update document'}
-          onClick={() => api.updateOne(document.id, {blocks})}
+          onClick={() => {
+            api.updateOne(document.id, {blocks}).then(() => {
+              console.log('Document updated:', document.id, document.title);
+            })
+          }}
         />
 
       </form>

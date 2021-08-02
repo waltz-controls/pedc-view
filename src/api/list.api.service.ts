@@ -11,60 +11,72 @@ export default class ListApiService {
     this.LOCAL_STORAGE_KEY = key;
   }
 
+  private read(): Promise<any> {
+    return new Promise((resolve) => {
+      const data = localStorage.getItem(this.LOCAL_STORAGE_KEY) || '[]';
+      const parsedData = JSON.parse(data);
 
-  private readLocalStorage(): any {
-    const data = localStorage.getItem(this.LOCAL_STORAGE_KEY) || '[]';
-    return JSON.parse(data);
+      resolve(parsedData);
+    });
   }
 
-  private writeLocalStorage(data: any): void {
-    localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(data));
+  private write(data: any): Promise<boolean> {
+    return new Promise((resolve) => {
+      localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(data));
+
+      resolve(true);
+    });
   }
 
-  public insertOne(title: string, blocks: any[]): string {
-    const items = this.readLocalStorage();
+  public insertOne(title: string, blocks: any[]): Promise<string> {
     const id = String(Date.now());
 
-    items.push({id, title, blocks});
+    return this.read()
+      .then((items) => {
+        items.push({id, title, blocks});
 
-    this.writeLocalStorage(items);
-
-    return id;
+        return this.write(items);
+      })
+      .then(() => id);
   }
 
-  public findOne(id: string): any {
-    const items = this.readLocalStorage();
-
-    return items.find((item: any) => item.id === id);
+  public findOne(id: string): Promise<any> {
+    return this.read().then((items) => {
+      return items.find((item: any) => item.id === id);
+    });
   }
 
   public findAll(): Promise<any[]> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.readLocalStorage());
-      }, 700)
-    });
+    return this.read();
   }
 
-  public removeOne(id: string): void {
-    const items = this.readLocalStorage();
+  public removeOne(id: string): Promise<any[]> {
+    let updatedItems: any[] = [];
 
-    const updatedItems = items.filter((item: any) => item.id !== id);
+    return this.read()
+      .then((items) => {
+        updatedItems = items.filter((item: any) => item.id !== id);
 
-    this.writeLocalStorage(updatedItems);
+        return this.write(updatedItems);
+      })
+      .then(() => updatedItems);
   }
 
-  public updateOne(id: string, data: any): void {
-    const items = this.readLocalStorage();
+  public updateOne(id: string, data: any): Promise<any> {
+    let updatedItems: any[] = [];
 
-    const updatedItems = items.map((item: any) => {
-      if (item.id === id) {
-        return {...item, ...data};
-      }
+    return this.read()
+      .then((items) => {
+        const updatedItems = items.map((item: any) => {
+          if (item.id === id) {
+            return {...item, ...data};
+          }
 
-      return item;
-    });
+          return item;
+        });
 
-    this.writeLocalStorage(updatedItems);
+        return this.write(updatedItems);
+      })
+      .then(() => updatedItems);
   }
 }
