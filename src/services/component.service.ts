@@ -42,10 +42,12 @@ export default class ComponentService {
       [LibraryComponentType.CHECKBOX]: {
         alignIndicator: Alignment.LEFT,
         label: 'Checkbox Label',
+        onChange: () => {}
       },
       [LibraryComponentType.SWITCH]: {
         alignIndicator: Alignment.LEFT,
         label: 'Switch Label',
+        onChange: () => {}
       },
       [LibraryComponentType.NUMERIC_INPUT]: {
         label: "Numeric Label",
