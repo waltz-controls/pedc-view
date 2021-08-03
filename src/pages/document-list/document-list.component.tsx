@@ -36,7 +36,7 @@ export default function DocumentListComponent() {
 
             <Button
               intent={Intent.NONE}
-              onClick={() => history.push(`/document/${doc.id}`)}
+              onClick={() => history.push(`/documents/${doc.id}`)}
             >
               See document
             </Button>

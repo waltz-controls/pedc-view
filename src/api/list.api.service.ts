@@ -1,82 +1,65 @@
 export enum ListApiServiceType {
-  TEMPLATE = 'pedc-templates',
-  DOCUMENT = 'pedc-documents'
+  TEMPLATE = 'http://localhost:3000/templates',
+  DOCUMENT = 'http://localhost:3000/documents'
 }
 
 export default class ListApiService {
 
-  readonly LOCAL_STORAGE_KEY: string;
+  readonly STORAGE_KEY: string;
 
   constructor(key: string) {
-    this.LOCAL_STORAGE_KEY = key;
-  }
-
-  private read(): Promise<any> {
-    return new Promise((resolve) => {
-      const data = localStorage.getItem(this.LOCAL_STORAGE_KEY) || '[]';
-      const parsedData = JSON.parse(data);
-
-      resolve(parsedData);
-    });
-  }
-
-  private write(data: any): Promise<boolean> {
-    return new Promise((resolve) => {
-      localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(data));
-
-      resolve(true);
-    });
+    this.STORAGE_KEY = key;
   }
 
   public insertOne(title: string, blocks: any[]): Promise<string> {
-    const id = String(Date.now());
-
-    return this.read()
-      .then((items) => {
-        items.push({id, title, blocks});
-
-        return this.write(items);
+    return fetch(this.STORAGE_KEY, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        blocks
       })
-      .then(() => id);
+    }).then((response) => {
+      return response.json();
+    })
   }
 
   public findOne(id: string): Promise<any> {
-    return this.read().then((items) => {
-      return items.find((item: any) => item.id === id);
-    });
+    return fetch(this.STORAGE_KEY + '/' + id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => response.json());
   }
 
   public findAll(): Promise<any[]> {
-    return this.read();
+    return fetch(this.STORAGE_KEY, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => response.json());
   }
 
   public removeOne(id: string): Promise<any[]> {
-    let updatedItems: any[] = [];
-
-    return this.read()
-      .then((items) => {
-        updatedItems = items.filter((item: any) => item.id !== id);
-
-        return this.write(updatedItems);
-      })
-      .then(() => updatedItems);
+    return fetch(this.STORAGE_KEY + '/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => response.json());
   }
 
   public updateOne(id: string, data: any): Promise<any> {
-    let updatedItems: any[] = [];
-
-    return this.read()
-      .then((items) => {
-        const updatedItems = items.map((item: any) => {
-          if (item.id === id) {
-            return {...item, ...data};
-          }
-
-          return item;
-        });
-
-        return this.write(updatedItems);
-      })
-      .then(() => updatedItems);
+    return fetch(this.STORAGE_KEY + '/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    }).then((response) => response.json());
   }
 }

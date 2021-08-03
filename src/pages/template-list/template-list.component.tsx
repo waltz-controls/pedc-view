@@ -55,7 +55,7 @@ export default function TemplateListComponent() {
                   .insertOne(documentTitle, template.blocks)
                   .then((id) => {
                     console.log('Document created:', id, documentTitle);
-                    history.push(`/document/${id}`);
+                    history.push(`/documents/${id}`);
                   });
               }}
             >

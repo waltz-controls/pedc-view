@@ -24,8 +24,8 @@ function AppComponent() {
       <Switch>
         <Route path="/create-template"><GeneratorComponent/></Route>
         <Route path="/templates"><TemplateListComponent/></Route>
+        <Route path="/documents/:id"><DocumentComponent/></Route>
         <Route path="/documents"><DocumentListComponent/></Route>
-        <Route path="/document/:id"><DocumentComponent/></Route>
         <Route path="/">
           <div style={{padding: 20}}>
             <H3>Welcome!</H3>
