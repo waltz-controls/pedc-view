@@ -32,11 +32,11 @@ export default function DocumentListComponent() {
 
         {!isPending && documents.map((doc: any, index: number) => (
           <Card key={index} className="documents-block">
-            <H4>{doc.id} - {doc.title}</H4>
+            <H4>{doc._id} - {doc.title}</H4>
 
             <Button
               intent={Intent.NONE}
-              onClick={() => history.push(`/documents/${doc.id}`)}
+              onClick={() => history.push(`/documents/${doc._id}`)}
             >
               See document
             </Button>
@@ -47,8 +47,8 @@ export default function DocumentListComponent() {
               intent={Intent.DANGER}
               onClick={() => {
                 setPending(true);
-                api.removeOne(doc.id).then(() => {
-                  console.log('Document removed:', doc.id, doc.title);
+                api.removeOne(doc._id).then(() => {
+                  console.log('Document removed:', doc._id, doc.title);
                 });
               }}
             >

@@ -11,7 +11,7 @@ export default class ListApiService {
     this.STORAGE_KEY = key;
   }
 
-  public insertOne(title: string, blocks: any[]): Promise<string> {
+  public insertOne(title: string, blocks: any[]): Promise<any> {
     return fetch(this.STORAGE_KEY, {
       method: 'POST',
       headers: {

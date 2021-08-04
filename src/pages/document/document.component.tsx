@@ -67,7 +67,7 @@ export default function DocumentComponent() {
 
   return (
     <div className={"item-container"}>
-      <H3>{params.id} - {document.title}</H3>
+      <H3>{document._id} - {document.title}</H3>
 
       {isPending && 'pending...'}
 
@@ -133,8 +133,8 @@ export default function DocumentComponent() {
           intent={Intent.PRIMARY}
           text={'Update document'}
           onClick={() => {
-            api.updateOne(document.id, {blocks}).then(() => {
-              console.log('Document updated:', document.id, document.title);
+            api.updateOne(document._id, {blocks}).then(() => {
+              console.log('Document updated:', document._id, document.title);
             })
           }}
         />

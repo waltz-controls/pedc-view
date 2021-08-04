@@ -43,7 +43,7 @@ export default function TemplateListComponent() {
 
       {!isPending && templates.map((template: any, index: number) => (
         <Card key={index} className="templates-block">
-          <H4>{template.id} - {template.title}</H4>
+          <H4>{template._id} - {template.title}</H4>
 
           <ControlGroup>
             <Button
@@ -53,9 +53,9 @@ export default function TemplateListComponent() {
               onClick={() => {
                 documentApi
                   .insertOne(documentTitle, template.blocks)
-                  .then((id) => {
-                    console.log('Document created:', id, documentTitle);
-                    history.push(`/documents/${id}`);
+                  .then((document) => {
+                    console.log('Document created:', document._id, documentTitle);
+                    history.push(`/documents/${document._id}`);
                   });
               }}
             >
@@ -67,8 +67,8 @@ export default function TemplateListComponent() {
               intent={Intent.DANGER}
               onClick={() => {
                 setPending(true);
-                templateApi.removeOne(template.id).then(() => {
-                  console.log('Template removed:', template.id, template.title);
+                templateApi.removeOne(template._id).then(() => {
+                  console.log('Template removed:', template._id, template.title);
                 });
               }}
             >
