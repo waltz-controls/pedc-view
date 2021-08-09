@@ -5,14 +5,14 @@ export enum ListApiServiceType {
 
 export default class ListApiService {
 
-  readonly STORAGE_KEY: string;
+  readonly STORAGE_PATH: string;
 
   constructor(key: string) {
-    this.STORAGE_KEY = key;
+    this.STORAGE_PATH = key;
   }
 
   public insertOne(title: string, blocks: any[]): Promise<any> {
-    return fetch(this.STORAGE_KEY, {
+    return fetch(this.STORAGE_PATH, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export default class ListApiService {
   }
 
   public findOne(id: string): Promise<any> {
-    return fetch(this.STORAGE_KEY + '/' + id, {
+    return fetch(this.STORAGE_PATH + '/' + id, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export default class ListApiService {
   }
 
   public findAll(): Promise<any[]> {
-    return fetch(this.STORAGE_KEY, {
+    return fetch(this.STORAGE_PATH, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export default class ListApiService {
   }
 
   public removeOne(id: string): Promise<any[]> {
-    return fetch(this.STORAGE_KEY + '/' + id, {
+    return fetch(this.STORAGE_PATH + '/' + id, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export default class ListApiService {
   }
 
   public updateOne(id: string, data: any): Promise<any> {
-    return fetch(this.STORAGE_KEY + '/' + id, {
+    return fetch(this.STORAGE_PATH + '/' + id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
