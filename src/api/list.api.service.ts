@@ -1,3 +1,5 @@
+import {AppStateType} from "../state/state.context";
+
 export enum ListApiServiceType {
   TEMPLATE = 'http://localhost:3000/templates',
   DOCUMENT = 'http://localhost:3000/documents'
@@ -8,9 +10,12 @@ export default class ListApiService {
   readonly STORAGE_PATH: string;
   readonly TOKEN: string;
 
-  constructor(key: string, token: string) {
+  private clearToken = () => {}
+
+  constructor(key: string, appState: AppStateType) {
     this.STORAGE_PATH = key;
-    this.TOKEN = token;
+    this.TOKEN = appState.getToken();
+    this.clearToken = () => appState.setAuth(false);
   }
 
   public insertOne(title: string, blocks: any[]): Promise<any> {
@@ -30,11 +35,13 @@ export default class ListApiService {
           return data;
         }
 
+        this.clearToken();
+
         return {
           title: "",
           _id: "",
           blocks: []
-        }
+        };
       })
   }
 
@@ -50,6 +57,8 @@ export default class ListApiService {
         if (!data.statusCode) {
           return data;
         }
+
+        this.clearToken();
 
         return {
           title: "",
@@ -71,6 +80,8 @@ export default class ListApiService {
         if (!data.statusCode) {
           return data;
         }
+
+        this.clearToken();
 
         return [];
       });

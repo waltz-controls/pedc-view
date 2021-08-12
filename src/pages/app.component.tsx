@@ -7,6 +7,7 @@ import TemplateListComponent from "./template-list/template-list.component";
 import DocumentComponent from "./document/document.component";
 import DocumentListComponent from "./document-list/document-list.component";
 import LoginComponent from "./login/login.component";
+import PrivateRoute from "./auth/private-route.component";
 
 
 function AppComponent() {
@@ -14,7 +15,6 @@ function AppComponent() {
     {to: '/create-template', title: 'Create template'},
     {to: '/templates', title: 'Templates'},
     {to: '/documents', title: 'Documents'},
-    {to: '/login', title: 'Login'},
   ];
 
   return (
@@ -26,11 +26,23 @@ function AppComponent() {
           <NavigationComponent links={links}/>
 
           <Switch>
-            <Route path="/create-template"><GeneratorComponent/></Route>
-            <Route path="/templates"><TemplateListComponent/></Route>
-            <Route path="/documents/:id"><DocumentComponent/></Route>
-            <Route path="/documents"><DocumentListComponent/></Route>
-            <Route path="/login"><LoginComponent/></Route>
+            <PrivateRoute path="/create-template">
+              <GeneratorComponent/>
+            </PrivateRoute>
+
+            <PrivateRoute path="/templates">
+              <TemplateListComponent/>
+            </PrivateRoute>
+
+            <PrivateRoute path="/documents/:id">
+              <DocumentComponent/>
+            </PrivateRoute>
+
+            <PrivateRoute path="/documents">
+              <DocumentListComponent/>
+            </PrivateRoute>
+
+            {/*<Route path="/login"><LoginComponent/></Route>*/}
           </Switch>
         </Route>
       </Switch>

@@ -15,8 +15,8 @@ export default function TemplateListComponent() {
   const history = useHistory();
   const appState = useAppState();
 
-  const templateApi = new TemplateApiService(ListApiServiceType.TEMPLATE, appState.getToken());
-  const documentApi = new DocumentApiService(ListApiServiceType.DOCUMENT, appState.getToken());
+  const templateApi = new TemplateApiService(ListApiServiceType.TEMPLATE, appState);
+  const documentApi = new DocumentApiService(ListApiServiceType.DOCUMENT, appState);
 
   useEffect(() => {
     templateApi.findAll().then((templates) => {

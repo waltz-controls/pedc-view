@@ -29,8 +29,8 @@ export function getDefaultState() {
 }
 
 export const AppStateContext = React.createContext(getDefaultState());
-export type GlobalStateContextType = ReturnType<typeof getDefaultState>;
+export type AppStateType = ReturnType<typeof getDefaultState>;
 
-export function useAppState(): GlobalStateContextType {
+export function useAppState(): AppStateType {
   return useContext(AppStateContext);
 }

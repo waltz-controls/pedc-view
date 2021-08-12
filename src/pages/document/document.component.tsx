@@ -32,7 +32,7 @@ export default function DocumentComponent() {
   const params: any = useParams();
   const history = useHistory();
   const appState = useAppState();
-  const api = new DocumentApiService(ListApiServiceType.DOCUMENT, appState.getToken());
+  const api = new DocumentApiService(ListApiServiceType.DOCUMENT, appState);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [initialMaxPage, setInitialMaxPage] = useState<number>(1);

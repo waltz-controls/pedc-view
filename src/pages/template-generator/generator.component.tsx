@@ -12,7 +12,7 @@ import {useAppState} from "../../state/state.context";
 
 export default function GeneratorComponent() {
   const appState = useAppState();
-  const api = new TemplateApiService(ListApiServiceType.TEMPLATE, appState.getToken());
+  const api = new TemplateApiService(ListApiServiceType.TEMPLATE, appState);
   const [items, setItems] = useState<ComponentType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [maxPage, setMaxPage] = useState<number>(1);

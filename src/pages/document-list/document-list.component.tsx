@@ -12,7 +12,7 @@ export default function DocumentListComponent() {
   const [documents, setDocuments] = useState<any>([]);
   const history = useHistory();
   const appState = useAppState();
-  const api = new DocumentApiService(ListApiServiceType.DOCUMENT, appState.getToken());
+  const api = new DocumentApiService(ListApiServiceType.DOCUMENT, appState);
 
   useEffect(() => {
     api.findAll().then((documents) => {
