@@ -21,6 +21,7 @@ export default function LoginComponent(): any {
       .then((response) => {
         if (response.isSuccessful) {
           appState.setAuth(true);
+          appState.setToken(response.access_token || '');
           setAuthStatus(true);
           setError('');
         } else {

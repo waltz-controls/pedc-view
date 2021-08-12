@@ -7,10 +7,12 @@ import TemplateApiService from "../../api/template.api.service";
 import {ListApiServiceType} from "../../api/list.api.service";
 import ComponentService from "../../services/component.service";
 import {Button, Intent} from "@blueprintjs/core";
+import {useAppState} from "../../state/state.context";
 
 
 export default function GeneratorComponent() {
-  const api = new TemplateApiService(ListApiServiceType.TEMPLATE);
+  const appState = useAppState();
+  const api = new TemplateApiService(ListApiServiceType.TEMPLATE, appState.getToken());
   const [items, setItems] = useState<ComponentType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [maxPage, setMaxPage] = useState<number>(1);

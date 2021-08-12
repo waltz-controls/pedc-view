@@ -1,19 +1,30 @@
 import React, {useContext} from "react";
 
-export function getDefaultState(){
+export function getDefaultState() {
   let isAuthenticated = false;
+  let token = '';
 
-  const setAuth = (value: boolean) => {
+  const setAuth = (value: boolean): void => {
     isAuthenticated = value;
   }
 
-  const getAuth = () => {
+  const getAuth = (): boolean => {
     return isAuthenticated;
+  }
+
+  const setToken = (value: string): void => {
+    token = value;
+  }
+
+  const getToken = (): string => {
+    return token;
   }
 
   return {
     setAuth,
-    getAuth
+    getAuth,
+    setToken,
+    getToken,
   };
 }
 

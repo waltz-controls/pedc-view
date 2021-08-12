@@ -6,9 +6,11 @@ export enum ListApiServiceType {
 export default class ListApiService {
 
   readonly STORAGE_PATH: string;
+  readonly TOKEN: string;
 
-  constructor(key: string) {
+  constructor(key: string, token: string) {
     this.STORAGE_PATH = key;
+    this.TOKEN = token;
   }
 
   public insertOne(title: string, blocks: any[]): Promise<any> {
@@ -16,14 +18,24 @@ export default class ListApiService {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.TOKEN,
       },
       body: JSON.stringify({
         title,
         blocks
       })
-    }).then((response) => {
-      return response.json();
-    })
+    }).then((response) => response.json())
+      .then((data) => {
+        if (!data.statusCode) {
+          return data;
+        }
+
+        return {
+          title: "",
+          _id: "",
+          blocks: []
+        }
+      })
   }
 
   public findOne(id: string): Promise<any> {
@@ -31,8 +43,20 @@ export default class ListApiService {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.TOKEN,
       },
-    }).then((response) => response.json());
+    }).then((response) => response.json())
+      .then((data) => {
+        if (!data.statusCode) {
+          return data;
+        }
+
+        return {
+          title: "",
+          _id: "",
+          blocks: []
+        }
+      });
   }
 
   public findAll(): Promise<any[]> {
@@ -40,8 +64,16 @@ export default class ListApiService {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.TOKEN,
       },
-    }).then((response) => response.json());
+    }).then((response) => response.json())
+      .then((data) => {
+        if (!data.statusCode) {
+          return data;
+        }
+
+        return [];
+      });
   }
 
   public removeOne(id: string): Promise<any[]> {
@@ -49,6 +81,7 @@ export default class ListApiService {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.TOKEN,
       },
     }).then((response) => response.json());
   }
@@ -58,6 +91,7 @@ export default class ListApiService {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.TOKEN,
       },
       body: JSON.stringify(data)
     }).then((response) => response.json());

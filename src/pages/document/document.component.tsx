@@ -6,6 +6,7 @@ import {useHistory, useParams} from 'react-router-dom';
 import DocumentApiService from "../../api/document.api.service";
 import {ListApiServiceType} from "../../api/list.api.service";
 import ComponentService from "../../services/component.service";
+import {useAppState} from "../../state/state.context";
 
 
 function getDocumentMaxPage(blocks: any): number {
@@ -30,7 +31,8 @@ function getPagesConfiguration(_current: number, _limit: number): any[] {
 export default function DocumentComponent() {
   const params: any = useParams();
   const history = useHistory();
-  const api = new DocumentApiService(ListApiServiceType.DOCUMENT);
+  const appState = useAppState();
+  const api = new DocumentApiService(ListApiServiceType.DOCUMENT, appState.getToken());
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [initialMaxPage, setInitialMaxPage] = useState<number>(1);
@@ -40,10 +42,10 @@ export default function DocumentComponent() {
 
   // document
   useEffect(() => {
-    api.findOne(params.id).then((document) => {
-      const initialMaxPage = getDocumentMaxPage(document.blocks);
+    api.findOne(params.id).then((_document) => {
+      const initialMaxPage = getDocumentMaxPage(_document.blocks);
 
-      setDocument(document);
+      setDocument(_document);
       setInitialMaxPage(initialMaxPage);
       setPending(false);
     });

@@ -4,13 +4,15 @@ import './document-list.component.scss';
 import DocumentApiService from "../../api/document.api.service";
 import {useHistory} from "react-router-dom";
 import {ListApiServiceType} from "../../api/list.api.service";
+import {useAppState} from "../../state/state.context";
 
 
 export default function DocumentListComponent() {
   const [isPending, setPending] = useState(true);
   const [documents, setDocuments] = useState<any>([]);
   const history = useHistory();
-  const api = new DocumentApiService(ListApiServiceType.DOCUMENT);
+  const appState = useAppState();
+  const api = new DocumentApiService(ListApiServiceType.DOCUMENT, appState.getToken());
 
   useEffect(() => {
     api.findAll().then((documents) => {

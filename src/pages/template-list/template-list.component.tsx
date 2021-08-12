@@ -5,6 +5,7 @@ import {Button, Card, ControlGroup, H3, H4, InputGroup, Intent, Spinner} from '@
 import {useHistory} from 'react-router-dom';
 import DocumentApiService from "../../api/document.api.service";
 import {ListApiServiceType} from "../../api/list.api.service";
+import {useAppState} from "../../state/state.context";
 
 
 export default function TemplateListComponent() {
@@ -12,9 +13,10 @@ export default function TemplateListComponent() {
   const [templates, setTemplates] = useState<any[]>([]);
   const [documentTitle, setDocumentTitle] = useState<string>('');
   const history = useHistory();
+  const appState = useAppState();
 
-  const templateApi = new TemplateApiService(ListApiServiceType.TEMPLATE);
-  const documentApi = new DocumentApiService(ListApiServiceType.DOCUMENT);
+  const templateApi = new TemplateApiService(ListApiServiceType.TEMPLATE, appState.getToken());
+  const documentApi = new DocumentApiService(ListApiServiceType.DOCUMENT, appState.getToken());
 
   useEffect(() => {
     templateApi.findAll().then((templates) => {
