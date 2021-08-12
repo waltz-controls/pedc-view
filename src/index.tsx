@@ -4,13 +4,18 @@ import './index.scss';
 import AppComponent from './pages/app.component';
 import reportWebVitals from './reportWebVitals';
 
-import { FocusStyleManager } from "@blueprintjs/core";
+import {FocusStyleManager} from "@blueprintjs/core";
+import {AppStateContext, getDefaultState} from './state/state.context';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppComponent />
+    <AppStateContext.Provider
+      value={getDefaultState()}
+    >
+      <AppComponent/>
+    </AppStateContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,34 +1,42 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Intent, NonIdealState,} from "@blueprintjs/core";
 import AuthApiService from "../../api/auth.api.service";
 import {TextInputComponent} from "../../components/text-input.component";
 import {useHistory} from "react-router-dom";
+import {useAppState} from "../../state/state.context";
 
-export default function LoginComponent() {
+export default function LoginComponent(): any {
   const api = new AuthApiService();
   const history = useHistory();
+  const appState = useAppState();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setError] = useState('');
+  const [isAuth, setAuthStatus] = useState(appState.getAuth());
 
-  function login(_username: string, _password: string): void {
+  const processLogin = () => {
     api
       .login(username, password)
       .then((response) => {
-        const isSuccessful = Boolean(response.access_token);
-
-        setError(isSuccessful ? '' : response.message);
-
-        if (isSuccessful) {
-          history.push('/');
+        if (response.isSuccessful) {
+          appState.setAuth(true);
+          setAuthStatus(true);
+          setError('');
+        } else {
+          setError(response.message);
         }
       });
   }
 
+  useEffect(() => {
+    if (isAuth) {
+      history.push('/');
+    }
+  }, [isAuth]);
+
   return (
     <div>
-
       <div style={{width: 300, margin: "50px auto"}}>
 
         <TextInputComponent
@@ -48,9 +56,7 @@ export default function LoginComponent() {
         <Button
           fill
           intent={Intent.PRIMARY}
-          onClick={() => {
-            login(username, password);
-          }}
+          onClick={processLogin}
         >Login</Button>
 
         <br/>
