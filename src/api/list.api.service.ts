@@ -1,8 +1,8 @@
 import {AppStateType} from "../state/state.context";
 
 export enum ListApiServiceType {
-  TEMPLATE = 'http://localhost:3000/templates',
-  DOCUMENT = 'http://localhost:3000/documents'
+  TEMPLATE = '/templates',
+  DOCUMENT = '/documents'
 }
 
 export default class ListApiService {
@@ -94,7 +94,16 @@ export default class ListApiService {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.TOKEN,
       },
-    }).then((response) => response.json());
+    }).then((response) => response.json())
+      .then((data) => {
+        if (!data.statusCode) {
+          return data;
+        }
+
+        this.clearToken();
+
+        return [];
+      });
   }
 
   public updateOne(id: string, data: any): Promise<any> {
@@ -105,6 +114,15 @@ export default class ListApiService {
         'Authorization': 'Bearer ' + this.TOKEN,
       },
       body: JSON.stringify(data)
-    }).then((response) => response.json());
+    }).then((response) => response.json())
+      .then((data) => {
+        if (!data.statusCode) {
+          return data;
+        }
+
+        this.clearToken();
+
+        return false;
+      });
   }
 }
