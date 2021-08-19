@@ -8,6 +8,7 @@ type TemplateComponentProps = {
   blocks: ComponentType[];
   saveDocument(title: string): void;
   clearDocument(): void;
+  children: any;
 }
 
 export default function TemplateComponent(props: TemplateComponentProps) {
@@ -45,6 +46,8 @@ export default function TemplateComponent(props: TemplateComponentProps) {
           </Button>
         </ButtonGroup>
       </Callout>
+
+      {props.children}
 
       <div className={"template-container"}>
         {blocks.map((block: any, index: number) => (

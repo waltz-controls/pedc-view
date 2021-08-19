@@ -35,26 +35,6 @@ export default function TemplateGeneratorComponent() {
 
       <div className="generator-document">
 
-        <PagesComponent
-          currentPage={currentPage}
-          maxPage={maxPage}
-          addPage={() => {
-            setMaxPage(maxPage + 1);
-            setCurrentPage(maxPage + 1);
-          }}
-          selectPage={(index) => setCurrentPage(index)}
-          deletePage={() => {
-            const updatedMaxPage = maxPage - 1;
-            const updatedItems = items.filter((item) => item.page && item.page <= updatedMaxPage);
-
-            setItems(updatedItems);
-            setMaxPage(updatedMaxPage);
-            setCurrentPage(updatedMaxPage);
-          }}
-        />
-
-        <br/>
-
         <TemplateComponent
           blocks={blocks}
           saveDocument={(title: string) => {
@@ -69,7 +49,27 @@ export default function TemplateGeneratorComponent() {
             });
           }}
           clearDocument={() => setItems([])}
-        />
+        >
+
+          <PagesComponent
+            currentPage={currentPage}
+            maxPage={maxPage}
+            addPage={() => {
+              setMaxPage(maxPage + 1);
+              setCurrentPage(maxPage + 1);
+            }}
+            selectPage={(index) => setCurrentPage(index)}
+            deletePage={() => {
+              const updatedMaxPage = maxPage - 1;
+              const updatedItems = items.filter((item) => item.page && item.page <= updatedMaxPage);
+
+              setItems(updatedItems);
+              setMaxPage(updatedMaxPage);
+              setCurrentPage(updatedMaxPage);
+            }}
+          />
+
+        </TemplateComponent>
       </div>
     </div>
   );
