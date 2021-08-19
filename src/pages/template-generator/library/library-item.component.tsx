@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {H6} from "@blueprintjs/core";
 import './library-item.component.scss';
 import {ComponentType, LibraryComponentType} from "types";
-import ComponentService from "services/component.service";
+import BlockService from "blocks/block.service";
 import {ButtonGroupComponent} from "shared/button-group-component";
 
 
@@ -48,7 +48,7 @@ export default function LibraryItemComponent(props: ConfigurationComponentProps)
         <form>
           {showFields && props.fields.map((field ) => {
 
-            const FieldInstance = ComponentService.getInstanceByType(field.type);
+            const FieldInstance = BlockService.getInstanceByType(field.type);
             const fieldValue = customProps[field.key] || props.component.props.value || field.props.value;
 
             return (

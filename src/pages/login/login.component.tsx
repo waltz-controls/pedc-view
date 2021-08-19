@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
-import {Button, Intent, NonIdealState,} from "@blueprintjs/core";
+import {Button, FormGroup, InputGroup, Intent, NonIdealState,} from "@blueprintjs/core";
 import "./login.component.scss";
 
 import AuthApiService from "api/auth.api.service";
-import {TextInputComponent} from "components/text-input.component";
 import {useAppState} from "state/state.context";
 
 export default function LoginComponent(): any {
@@ -41,17 +40,19 @@ export default function LoginComponent(): any {
   return (
     <div className={"login-container"}>
 
-      <TextInputComponent
-        label={'Username'}
-        value={username}
-        onChange={(v) => setUsername(v)}
-      />
+      <FormGroup label={'Username'}>
+        <InputGroup
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+        />
+      </FormGroup>
 
-      <TextInputComponent
-        label={'Password'}
-        value={password}
-        onChange={(v) => setPassword(v)}
-      />
+      <FormGroup label={'Password'}>
+        <InputGroup
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+      </FormGroup>
 
       <br/>
 

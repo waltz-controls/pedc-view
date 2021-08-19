@@ -3,7 +3,7 @@ import {Card, H3,} from "@blueprintjs/core";
 import './library.component.scss';
 import LibraryItemComponent from "./library-item.component";
 import {ComponentType} from "types";
-import ComponentService from "services/component.service";
+import BlockService from "blocks/block.service";
 
 
 type LibraryComponentProps = {
@@ -11,7 +11,7 @@ type LibraryComponentProps = {
 };
 
 export default function LibraryComponent(props: LibraryComponentProps) {
-  const components: ComponentType[] = ComponentService.getAllComponentsForLibrary();
+  const components: ComponentType[] = BlockService.getAllComponentsForLibrary();
 
   return (
     <>

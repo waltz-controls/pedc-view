@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {Button, ButtonGroup, Callout, H3, Icon, Intent} from "@blueprintjs/core";
+import {Button, ButtonGroup, Callout, FormGroup, H3, InputGroup, Intent} from "@blueprintjs/core";
 import './template.component.scss';
 import {ComponentType} from "types";
-import {TextInputComponent} from "components/text-input.component";
 
 type TemplateComponentProps = {
   blocks: ComponentType[];
@@ -21,11 +20,12 @@ export default function TemplateComponent(props: TemplateComponentProps) {
 
       <Callout className={'template-control'}>
 
-        <TextInputComponent
-          placeholder={"Template title"}
-          value={title}
-          onChange={(value) => setTitle(value)}
-        />
+        <FormGroup label={'Template title'}>
+          <InputGroup
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
+        </FormGroup>
 
         <ButtonGroup fill>
           <Button

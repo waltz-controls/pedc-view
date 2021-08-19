@@ -12,10 +12,10 @@ import {
   GalleryComponent,
   CheckboxComponent,
   SwitchComponent,
-} from "components";
+} from "./components";
 
 
-export default class ComponentService {
+export default class BlockService {
   static getInstanceByType(type: LibraryComponentType) {
     return {
       [LibraryComponentType.FILE_INPUT]: FileInputComponent,
@@ -260,9 +260,9 @@ export default class ComponentService {
     ].map((type) => {
       return {
         type,
-        instance: ComponentService.getInstanceByType(type),
-        props: ComponentService.getDefaultPropsByType(type),
-        fields: ComponentService.getConfigurationFieldsByType(type)
+        instance: BlockService.getInstanceByType(type),
+        props: BlockService.getDefaultPropsByType(type),
+        fields: BlockService.getConfigurationFieldsByType(type)
       }
     });
   }

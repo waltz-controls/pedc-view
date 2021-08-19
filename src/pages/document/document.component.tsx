@@ -5,7 +5,7 @@ import {Button, H3, Intent,} from "@blueprintjs/core";
 import './document.component.scss';
 import {ComponentType, LibraryComponentType} from "types";
 import DocumentApiService from "api/document.api.service";
-import ComponentService from "services/component.service";
+import BlockService from "blocks/block.service";
 import {useAppState} from "state/state.context";
 
 
@@ -56,7 +56,7 @@ export default function DocumentComponent() {
     const documentBlocks = document.blocks.map((component: ComponentType) => {
       return {
         ...component,
-        instance: ComponentService.getInstanceByType(component.type)
+        instance: BlockService.getInstanceByType(component.type)
       };
     });
 
