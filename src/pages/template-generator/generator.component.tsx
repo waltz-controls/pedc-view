@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import {Button, Intent} from "@blueprintjs/core";
 import './generator.component.scss';
-import LibraryComponent from "./library.component";
+import LibraryComponent from "./library/library.component";
 import TemplateGeneratorComponent from "./template-generator.component";
 import {ComponentType} from "types";
 import TemplateApiService from "api/template.api.service";
 import {ListApiServiceType} from "api/list.api.service";
-import ComponentService from "services/component.service";
 import {useAppState} from "state/state.context";
+import PagesComponent from "../../shared/pages.component";
 
 
 export default function GeneratorComponent() {
@@ -16,22 +15,6 @@ export default function GeneratorComponent() {
   const [items, setItems] = useState<ComponentType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [maxPage, setMaxPage] = useState<number>(1);
-  const components = ComponentService.getAllComponentsForLibrary();
-
-  const pages = Array.from(Array(maxPage).keys()).map((value) => {
-    const index = value + 1;
-    const intent = index === currentPage ? Intent.PRIMARY : Intent.NONE;
-
-    return (
-      <Button
-        minimal
-        key={index}
-        intent={intent}
-        onClick={() => setCurrentPage(index)}
-      >{index}
-      </Button>
-    );
-  });
 
   const blocks = items.filter((item) => item.page === currentPage);
 
@@ -40,44 +23,35 @@ export default function GeneratorComponent() {
       <div className="generator-library">
         <LibraryComponent
           select={(_component: ComponentType) => {
-            setItems([...items, {
+            const selectedItem = {
               ..._component,
               page: currentPage,
-            }]);
+            };
+
+            setItems(items.concat(selectedItem));
           }}
-          components={components}
         />
       </div>
+
       <div className="generator-document">
-        <div>
-          <Button
-            minimal
-            onClick={() => {
-              setMaxPage(maxPage + 1);
-              setCurrentPage(maxPage + 1);
-            }}
-          >
-            Add page
-          </Button>
 
-          <Button
-            minimal
-            disabled={maxPage < 2}
-            onClick={() => {
-              const updatedMaxPage = maxPage - 1;
-              const updatedItems = items.filter((item) => item.page && item.page <= updatedMaxPage);
+        <PagesComponent
+          currentPage={currentPage}
+          maxPage={maxPage}
+          addPage={() => {
+            setMaxPage(maxPage + 1);
+            setCurrentPage(maxPage + 1);
+          }}
+          selectPage={(index) => setCurrentPage(index)}
+          deletePage={() => {
+            const updatedMaxPage = maxPage - 1;
+            const updatedItems = items.filter((item) => item.page && item.page <= updatedMaxPage);
 
-              setItems(updatedItems);
-              setMaxPage(updatedMaxPage);
-              setCurrentPage(updatedMaxPage);
-            }}>
-            Delete page
-          </Button>
-
-          <div>
-            {pages}
-          </div>
-        </div>
+            setItems(updatedItems);
+            setMaxPage(updatedMaxPage);
+            setCurrentPage(updatedMaxPage);
+          }}
+        />
 
         <br/>
 
