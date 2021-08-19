@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {FormGroup, InputGroup, TextArea} from "@blueprintjs/core";
+import {FormGroup, TextArea} from "@blueprintjs/core";
 
 type TextAreaComponentProps = {
   label?: string;

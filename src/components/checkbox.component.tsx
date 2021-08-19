@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Checkbox, FormGroup, NumericInput} from "@blueprintjs/core";
+import {Checkbox} from "@blueprintjs/core";
 
 type CheckboxComponentProps = {
   label?: string;
