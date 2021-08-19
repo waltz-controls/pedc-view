@@ -1,8 +1,8 @@
 import React from 'react';
+import {Card, H3,} from "@blueprintjs/core";
 import './library.component.scss';
-import {Callout, Card, H3,} from "@blueprintjs/core";
-import {ComponentType} from "../../types";
 import ConfigurationComponent from "./configuration.component";
+import {ComponentType} from "types";
 
 
 type LibraryComponentProps = {

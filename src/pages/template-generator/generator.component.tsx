@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import {Button, Intent} from "@blueprintjs/core";
 import './generator.component.scss';
 import LibraryComponent from "./library.component";
 import TemplateGeneratorComponent from "./template-generator.component";
-import {ComponentType} from "../../types";
-import TemplateApiService from "../../api/template.api.service";
-import {ListApiServiceType} from "../../api/list.api.service";
-import ComponentService from "../../services/component.service";
-import {Button, Intent} from "@blueprintjs/core";
-import {useAppState} from "../../state/state.context";
+import {ComponentType} from "types";
+import TemplateApiService from "api/template.api.service";
+import {ListApiServiceType} from "api/list.api.service";
+import ComponentService from "services/component.service";
+import {useAppState} from "state/state.context";
 
 
 export default function GeneratorComponent() {

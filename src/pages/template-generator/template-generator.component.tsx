@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import './generator.component.scss';
 import {Button, ButtonGroup, Callout, H3, Intent} from "@blueprintjs/core";
-import {ComponentType} from "../../types";
 import './template-generator.component.scss';
-import {TextInputComponent} from "../../components/text-input.component";
+import {ComponentType} from "types";
+import {TextInputComponent} from "components/text-input.component";
 
 type TemplateComponentProps = {
   blocks: ComponentType[];

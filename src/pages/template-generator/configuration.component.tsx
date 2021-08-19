@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import {ComponentType, LibraryComponentType} from "../../types";
-import ComponentService from "../../services/component.service";
 import {Button, ButtonGroup, H6} from "@blueprintjs/core";
 import './configuration.component.scss';
+import {ComponentType, LibraryComponentType} from "types";
+import ComponentService from "services/component.service";
 
 function preventComponentInteraction(e: React.MouseEvent<HTMLElement>): void {
   e.preventDefault();
