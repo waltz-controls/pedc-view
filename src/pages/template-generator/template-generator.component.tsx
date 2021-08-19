@@ -7,6 +7,7 @@ import TemplateApiService from "api/template.api.service";
 import {ListApiServiceType} from "api/list.api.service";
 import {useAppState} from "state/state.context";
 import PagesComponent from "shared/pages.component";
+import { v1 as getId } from 'uuid';
 
 
 export default function TemplateGeneratorComponent() {
@@ -28,7 +29,13 @@ export default function TemplateGeneratorComponent() {
               page: currentPage,
             };
 
-            setItems(items.concat(selectedItem));
+            const updatedItems = items.concat(selectedItem).map((item, index) => {
+              item.id = getId();
+
+              return item;
+            });
+
+            setItems(updatedItems);
           }}
         />
       </div>
@@ -38,17 +45,18 @@ export default function TemplateGeneratorComponent() {
         <TemplateComponent
           blocks={blocks}
           saveDocument={(title: string) => {
-            const updatedItems = items.map((item, index: number) => {
-              item.id = index;
-
-              return item;
-            });
-
-            api.insertOne(title, updatedItems).then(() => {
+            api.insertOne(title, items).then(() => {
               console.log('Template created:', title);
             });
           }}
           clearDocument={() => setItems([])}
+          deleteBlock={(id: string) => {
+            const updatedItems = items.filter((item) => {
+              return id !== item.id;
+            });
+
+            setItems(updatedItems);
+          }}
         >
 
           <PagesComponent

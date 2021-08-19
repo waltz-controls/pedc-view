@@ -14,7 +14,7 @@ export enum LibraryComponentType {
 }
 
 export type ComponentType = {
-  id?: number;
+  id?: string;
   page?: number;
   instance?: any;
   fields?: any[];

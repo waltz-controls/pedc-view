@@ -10,5 +10,15 @@
 
   &-block {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+
+    &-instance {
+      flex: 1;
+    }
+
+    &-remove {
+      margin-left: 16px;
+    }
   }
 }
