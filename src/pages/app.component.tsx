@@ -7,7 +7,7 @@ import TemplateListComponent from "./template-list/template-list.component";
 import DocumentComponent from "./document/document.component";
 import DocumentListComponent from "./document-list/document-list.component";
 import LoginComponent from "./login/login.component";
-import PrivateRoute from "./auth/private-route.component";
+import PrivateRoute from "components/private-route.component";
 
 
 function AppComponent() {

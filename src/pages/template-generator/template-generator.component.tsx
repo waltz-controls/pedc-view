@@ -5,7 +5,7 @@ import TemplateComponent from "./template/template.component";
 import {ComponentType} from "types";
 import TemplateApiService from "api/template.api.service";
 import {useAppState} from "state/state.context";
-import PagesComponent from "shared/pages.component";
+import PagesComponent from "components/pages.component";
 import { v1 as getId } from 'uuid';
 
 

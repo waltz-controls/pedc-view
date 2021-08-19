@@ -3,7 +3,7 @@ import {H6} from "@blueprintjs/core";
 import './library-item.component.scss';
 import {ComponentType, LibraryComponentType} from "types";
 import BlockService from "blocks/block.service";
-import {ButtonGroupComponent} from "shared/button-group-component";
+import {ButtonGroupComponent} from "components/button-group-component";
 
 
 type ConfigurationComponentProps = {
