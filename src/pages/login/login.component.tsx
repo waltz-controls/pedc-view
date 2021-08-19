@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import {Button, Intent, NonIdealState,} from "@blueprintjs/core";
+import "./login.component.scss";
 
 import AuthApiService from "api/auth.api.service";
 import {TextInputComponent} from "components/text-input.component";
@@ -38,36 +39,34 @@ export default function LoginComponent(): any {
   }, [isAuth]);
 
   return (
-    <div>
-      <div style={{width: 300, margin: "50px auto"}}>
+    <div className={"login-container"}>
 
-        <TextInputComponent
-          label={'Username'}
-          value={username}
-          onChange={(v) => setUsername(v)}
-        />
+      <TextInputComponent
+        label={'Username'}
+        value={username}
+        onChange={(v) => setUsername(v)}
+      />
 
-        <TextInputComponent
-          label={'Password'}
-          value={password}
-          onChange={(v) => setPassword(v)}
-        />
+      <TextInputComponent
+        label={'Password'}
+        value={password}
+        onChange={(v) => setPassword(v)}
+      />
 
-        <br/>
+      <br/>
 
-        <Button
-          fill
-          intent={Intent.PRIMARY}
-          onClick={processLogin}
-        >Login</Button>
+      <Button
+        fill
+        intent={Intent.PRIMARY}
+        onClick={processLogin}
+      >Login</Button>
 
-        <br/>
+      <br/>
 
-        {errorText && <NonIdealState
-          icon="error"
-          title={errorText}
-        />}
-      </div>
+      {errorText && <NonIdealState
+        icon="error"
+        title={errorText}
+      />}
     </div>
   );
 }
