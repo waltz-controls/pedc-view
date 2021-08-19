@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import './template-list.component.scss';
-import TemplateApiService from "../../api/template.api.service";
 import {Button, Card, ControlGroup, H3, H4, InputGroup, Intent, Spinner} from '@blueprintjs/core';
 import {useHistory} from 'react-router-dom';
-import DocumentApiService from "../../api/document.api.service";
-import {ListApiServiceType} from "../../api/list.api.service";
-import {useAppState} from "../../state/state.context";
+import './template-list.component.scss';
+import TemplateApiService from "api/template.api.service";
+import DocumentApiService from "api/document.api.service";
+import {ListApiServiceType} from "api/list.api.service";
+import {useAppState} from "state/state.context";
 
 
 export default function TemplateListComponent() {

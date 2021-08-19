@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Button, H3, Intent,} from "@blueprintjs/core";
-import {ComponentType, LibraryComponentType} from "../../types";
-import './document.component.scss';
 import {useHistory, useParams} from 'react-router-dom';
-import DocumentApiService from "../../api/document.api.service";
-import {ListApiServiceType} from "../../api/list.api.service";
-import ComponentService from "../../services/component.service";
-import {useAppState} from "../../state/state.context";
+import {Button, H3, Intent,} from "@blueprintjs/core";
+
+import './document.component.scss';
+import {ComponentType, LibraryComponentType} from "types";
+import DocumentApiService from "api/document.api.service";
+import {ListApiServiceType} from "api/list.api.service";
+import ComponentService from "services/component.service";
+import {useAppState} from "state/state.context";
 
 
 function getDocumentMaxPage(blocks: any): number {

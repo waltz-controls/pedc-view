@@ -1,5 +1,6 @@
 import {Redirect, Route} from "react-router-dom";
-import {useAppState} from "../../state/state.context";
+import {useAppState} from "state/state.context";
+
 
 export default function PrivateRoute(props: any) {
   const {children, ...rest} = props;

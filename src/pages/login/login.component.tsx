@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Intent, NonIdealState,} from "@blueprintjs/core";
-import AuthApiService from "../../api/auth.api.service";
-import {TextInputComponent} from "../../components/text-input.component";
 import {useHistory} from "react-router-dom";
-import {useAppState} from "../../state/state.context";
+import {Button, Intent, NonIdealState,} from "@blueprintjs/core";
+
+import AuthApiService from "api/auth.api.service";
+import {TextInputComponent} from "components/text-input.component";
+import {useAppState} from "state/state.context";
 
 export default function LoginComponent(): any {
   const api = new AuthApiService();
