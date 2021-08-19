@@ -1,56 +1,76 @@
 import React, {useState} from 'react';
-import {Button, ButtonGroup, Callout, H3, Intent} from "@blueprintjs/core";
 import './template-generator.component.scss';
+import LibraryComponent from "./library/library.component";
+import TemplateComponent from "./template/template.component";
 import {ComponentType} from "types";
-import {TextInputComponent} from "components/text-input.component";
+import TemplateApiService from "api/template.api.service";
+import {ListApiServiceType} from "api/list.api.service";
+import {useAppState} from "state/state.context";
+import PagesComponent from "shared/pages.component";
 
-type TemplateComponentProps = {
-  blocks: ComponentType[];
-  saveDocument(title: string): void;
-  clearDocument(): void;
-}
 
-export default function TemplateGeneratorComponent(props: TemplateComponentProps) {
-  const [title, setTitle] = useState('');
+export default function TemplateGeneratorComponent() {
+  const appState = useAppState();
+  const api = new TemplateApiService(ListApiServiceType.TEMPLATE, appState);
+  const [items, setItems] = useState<ComponentType[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [maxPage, setMaxPage] = useState<number>(1);
 
-  const blocks = props.blocks.map((component: ComponentType) => (
-    <component.instance {...component.props} />
-  ));
+  const blocks = items.filter((item) => item.page === currentPage);
 
   return (
-    <>
-      <H3>Document Template</H3>
+    <div className="generator-container">
+      <div className="generator-library">
+        <LibraryComponent
+          select={(_component: ComponentType) => {
+            const selectedItem = {
+              ..._component,
+              page: currentPage,
+            };
 
-      <Callout className={'template-control'}>
+            setItems(items.concat(selectedItem));
+          }}
+        />
+      </div>
 
-        <TextInputComponent
-          placeholder={"Template title"}
-          value={title}
-          onChange={(value) => setTitle(value)}
+      <div className="generator-document">
+
+        <PagesComponent
+          currentPage={currentPage}
+          maxPage={maxPage}
+          addPage={() => {
+            setMaxPage(maxPage + 1);
+            setCurrentPage(maxPage + 1);
+          }}
+          selectPage={(index) => setCurrentPage(index)}
+          deletePage={() => {
+            const updatedMaxPage = maxPage - 1;
+            const updatedItems = items.filter((item) => item.page && item.page <= updatedMaxPage);
+
+            setItems(updatedItems);
+            setMaxPage(updatedMaxPage);
+            setCurrentPage(updatedMaxPage);
+          }}
         />
 
-        <ButtonGroup fill>
-          <Button
-            intent={Intent.PRIMARY}
-            disabled={!Boolean(title)}
-            onClick={() => {
-              props.saveDocument(title);
-              props.clearDocument();
-            }}
-          >
-            Create
-          </Button>
-          <Button intent={Intent.DANGER} onClick={props.clearDocument}>
-            Clear
-          </Button>
-        </ButtonGroup>
-      </Callout>
+        <br/>
 
-      <div className={"template-container"}>
-        {blocks.map((block: any, index: number) => (
-          <div key={index} className={"template-block"}>{block}</div>
-        ))}
+        <TemplateComponent
+          blocks={blocks}
+          saveDocument={(title: string) => {
+            const updatedItems = items.map((item, index: number) => {
+              item.id = index;
+
+              return item;
+            });
+
+            api.insertOne(title, updatedItems).then(() => {
+              console.log('Template created:', title);
+            });
+          }}
+          clearDocument={() => setItems([])}
+        />
       </div>
-    </>
+    </div>
   );
 }

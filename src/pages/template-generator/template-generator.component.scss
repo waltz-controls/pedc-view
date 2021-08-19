@@ -1,13 +1,16 @@
-.template {
-  &-control {
-    margin: 20px 0;
-  }
-
+.generator {
   &-container {
-    margin-bottom: 20px;
+    display: flex;
+    height: calc(100% - 50px);
   }
 
-  &-block {
-    margin-bottom: 20px;
+  &-library {
+    flex: 1;
+    padding: 16px;
+  }
+
+  &-document {
+    flex: 2;
+    padding: 16px;
   }
 }

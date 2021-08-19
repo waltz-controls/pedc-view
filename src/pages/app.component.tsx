@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import './app.component.scss';
 import NavigationComponent from "./navigation.component";
-import GeneratorComponent from "./template-generator/generator.component";
+import TemplateGeneratorComponent from "./template-generator/template-generator.component";
 import TemplateListComponent from "./template-list/template-list.component";
 import DocumentComponent from "./document/document.component";
 import DocumentListComponent from "./document-list/document-list.component";
@@ -25,7 +25,7 @@ function AppComponent() {
 
           <Switch>
             <PrivateRoute path="/create-template">
-              <GeneratorComponent/>
+              <TemplateGeneratorComponent/>
             </PrivateRoute>
 
             <PrivateRoute path="/templates">
