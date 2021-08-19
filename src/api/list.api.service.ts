@@ -7,13 +7,12 @@ export enum ListApiServiceType {
 
 export default class ListApiService {
 
-  readonly STORAGE_PATH: string;
-  readonly TOKEN: string;
+  readonly STORAGE_PATH: string = '';
+  readonly TOKEN: string = '';
 
-  private clearToken = () => {}
+  private clearToken = () => {};
 
-  constructor(key: string, appState: AppStateType) {
-    this.STORAGE_PATH = key;
+  constructor(appState: AppStateType) {
     this.TOKEN = appState.getToken();
     this.clearToken = () => appState.setAuth(false);
   }

@@ -5,7 +5,6 @@ import {Button, H3, Intent,} from "@blueprintjs/core";
 import './document.component.scss';
 import {ComponentType, LibraryComponentType} from "types";
 import DocumentApiService from "api/document.api.service";
-import {ListApiServiceType} from "api/list.api.service";
 import ComponentService from "services/component.service";
 import {useAppState} from "state/state.context";
 
@@ -33,7 +32,7 @@ export default function DocumentComponent() {
   const params: any = useParams();
   const history = useHistory();
   const appState = useAppState();
-  const api = new DocumentApiService(ListApiServiceType.DOCUMENT, appState);
+  const api = new DocumentApiService(appState);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [initialMaxPage, setInitialMaxPage] = useState<number>(1);

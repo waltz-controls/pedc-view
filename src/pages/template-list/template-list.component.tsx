@@ -4,7 +4,6 @@ import {useHistory} from 'react-router-dom';
 import './template-list.component.scss';
 import TemplateApiService from "api/template.api.service";
 import DocumentApiService from "api/document.api.service";
-import {ListApiServiceType} from "api/list.api.service";
 import {useAppState} from "state/state.context";
 
 
@@ -15,8 +14,8 @@ export default function TemplateListComponent() {
   const history = useHistory();
   const appState = useAppState();
 
-  const templateApi = new TemplateApiService(ListApiServiceType.TEMPLATE, appState);
-  const documentApi = new DocumentApiService(ListApiServiceType.DOCUMENT, appState);
+  const templateApi = new TemplateApiService(appState);
+  const documentApi = new DocumentApiService(appState);
 
   useEffect(() => {
     templateApi.findAll().then((templates) => {
