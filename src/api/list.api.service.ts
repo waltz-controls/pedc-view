@@ -1,4 +1,4 @@
-import {AppStateType} from "../state/state.context";
+import {AppStateType} from "state/state.context";
 
 export enum ListApiServiceType {
   TEMPLATE = '/templates',

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import AppComponent from './pages/app.component';
-import reportWebVitals from './reportWebVitals';
-
 import {FocusStyleManager} from "@blueprintjs/core";
-import {AppStateContext, getDefaultState} from './state/state.context';
+import reportWebVitals from 'reportWebVitals';
+
+import 'index.scss';
+import AppComponent from 'pages/app.component';
+import {AppStateContext, getDefaultState} from 'state/state.context';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 

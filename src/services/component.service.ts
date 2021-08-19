@@ -1,16 +1,18 @@
 import {ComponentType, LibraryComponentType} from "../types";
 import {Alignment} from "@blueprintjs/core";
-import {RadioGroupComponent} from "../components/radio-group.component";
-import {TagInputComponent} from "../components/tag-input.component";
-import {SliderComponent} from "../components/slider.component";
-import {FileInputComponent} from "../components/file-input.component";
-import {TextInputComponent} from "../components/text-input.component";
-import {NumericInputComponent} from "../components/numeric-input.component";
-import {TextAreaComponent} from "../components/textarea.component";
-import {ImageComponent} from "../components/image.component";
-import {GalleryComponent} from "../components/gallery.component";
-import {CheckboxComponent} from "../components/checkbox.component";
-import {SwitchComponent} from "../components/switch.component";
+import {
+  RadioGroupComponent,
+  TagInputComponent,
+  SliderComponent,
+  FileInputComponent,
+  TextInputComponent,
+  NumericInputComponent,
+  TextAreaComponent,
+  ImageComponent,
+  GalleryComponent,
+  CheckboxComponent,
+  SwitchComponent,
+} from "components";
 
 
 export default class ComponentService {
