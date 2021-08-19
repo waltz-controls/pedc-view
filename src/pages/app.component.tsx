@@ -11,19 +11,17 @@ import PrivateRoute from "./auth/private-route.component";
 
 
 function AppComponent() {
-  const links = [
-    {to: '/create-template', title: 'Create template'},
-    {to: '/templates', title: 'Templates'},
-    {to: '/documents', title: 'Documents'},
-  ];
-
   return (
     <Router>
-
       <Switch>
         <Route path="/login"><LoginComponent/></Route>
+
         <Route path="/">
-          <NavigationComponent links={links}/>
+          <NavigationComponent links={[
+            {to: '/create-template', title: 'Create template'},
+            {to: '/templates', title: 'Templates'},
+            {to: '/documents', title: 'Documents'},
+          ]}/>
 
           <Switch>
             <PrivateRoute path="/create-template">
@@ -41,8 +39,6 @@ function AppComponent() {
             <PrivateRoute path="/documents">
               <DocumentListComponent/>
             </PrivateRoute>
-
-            {/*<Route path="/login"><LoginComponent/></Route>*/}
           </Switch>
         </Route>
       </Switch>
