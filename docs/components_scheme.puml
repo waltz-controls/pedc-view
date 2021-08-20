@@ -1,0 +1,62 @@
+@startuml
+
+component App
+component Navigation
+component Route
+component PrivateRoute
+component LoginPage
+component TemplateGenerator
+
+note bottom
+	Container for:
+
+	__Library__ - List of blocks
+	that can be customized
+	and added to the template
+
+	__Template__ - List of configured
+	and added blocks from which
+	the template will be created.
+end note
+
+component Library
+component Template
+component TemplateList
+component Document
+component DocumentList
+package Blocks
+
+note right
+	Blocks are the components
+	from which a document
+	template is assembled.
+end note
+
+agent BlockService
+
+note right
+	Helps to render blocks.
+	Provides block instances,
+	default props and config fields.
+end note
+
+App -- Navigation
+Navigation --> Route
+Navigation --> PrivateRoute
+Route --> LoginPage
+
+PrivateRoute ---> TemplateGenerator
+TemplateGenerator --> Library
+TemplateGenerator --> Template
+
+PrivateRoute ---> TemplateList
+PrivateRoute ---> Document
+PrivateRoute ---> DocumentList
+
+Library .. BlockService
+Template .. BlockService
+Document .. BlockService
+BlockService .. Blocks
+
+
+@enduml
