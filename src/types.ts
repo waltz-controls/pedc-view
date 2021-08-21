@@ -10,7 +10,9 @@ export enum LibraryComponentType {
   TEXTAREA = 'TEXTAREA',
   IMAGE = 'IMAGE',
   GALLERY = 'GALLERY',
-  // DYNAMIC_FORM = 'DYNAMIC_FORM', TODO
+  HEADER = 'HEADER',
+  PARAGRAPH = 'PARAGRAPH',
+  HINT = 'HINT'
 }
 
 export type ComponentType = {

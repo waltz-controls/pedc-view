@@ -9,3 +9,6 @@ export {ImageComponent} from "./image.component";
 export {GalleryComponent} from "./gallery.component";
 export {CheckboxComponent} from "./checkbox.component";
 export {SwitchComponent} from "./switch.component";
+export {HeaderComponent} from "./header.component";
+export {ParagraphComponent} from "./paragraph.component";
+export {HintComponent} from "./hint.component";

@@ -1,18 +1,22 @@
 import {ComponentType, LibraryComponentType} from "../types";
 import {Alignment} from "@blueprintjs/core";
 import {
-  RadioGroupComponent,
-  TagInputComponent,
-  SliderComponent,
-  FileInputComponent,
-  TextInputComponent,
-  NumericInputComponent,
-  TextAreaComponent,
-  ImageComponent,
-  GalleryComponent,
   CheckboxComponent,
+  FileInputComponent,
+  GalleryComponent,
+  HeaderComponent,
+  HintComponent,
+  ImageComponent,
+  NumericInputComponent,
+  ParagraphComponent,
+  RadioGroupComponent,
+  SliderComponent,
   SwitchComponent,
+  TagInputComponent,
+  TextAreaComponent,
+  TextInputComponent,
 } from "./components";
+import {HEADER_TYPE} from "./components/header.component";
 
 
 export default class BlockService {
@@ -29,6 +33,9 @@ export default class BlockService {
       [LibraryComponentType.TEXTAREA]: TextAreaComponent,
       [LibraryComponentType.IMAGE]: ImageComponent,
       [LibraryComponentType.GALLERY]: GalleryComponent,
+      [LibraryComponentType.HEADER]: HeaderComponent,
+      [LibraryComponentType.PARAGRAPH]: ParagraphComponent,
+      [LibraryComponentType.HINT]: HintComponent,
     }[type];
   }
 
@@ -44,12 +51,14 @@ export default class BlockService {
       [LibraryComponentType.CHECKBOX]: {
         alignIndicator: Alignment.LEFT,
         label: 'Checkbox Label',
-        onChange: () => {}
+        onChange: () => {
+        }
       },
       [LibraryComponentType.SWITCH]: {
         alignIndicator: Alignment.LEFT,
         label: 'Switch Label',
-        onChange: () => {}
+        onChange: () => {
+        }
       },
       [LibraryComponentType.NUMERIC_INPUT]: {
         label: "Numeric Label",
@@ -111,6 +120,15 @@ export default class BlockService {
         label: 'Gallery Label',
         onChange: () => {
         }
+      },
+      [LibraryComponentType.HEADER]: {
+        value: "Header text..."
+      },
+      [LibraryComponentType.PARAGRAPH]: {
+        value: "Paragraph text..."
+      },
+      [LibraryComponentType.HINT]: {
+        value: "Hint text..."
       }
     }[type];
   }
@@ -175,22 +193,23 @@ export default class BlockService {
         type: LibraryComponentType.TEXT_INPUT,
         key: 'label',
         props: {small: true}
-      },{
+      }, {
         type: LibraryComponentType.NUMERIC_INPUT,
         key: 'min',
         props: {small: true, helperText: 'Min'}
-      },{
+      }, {
         type: LibraryComponentType.NUMERIC_INPUT,
         key: 'max',
         props: {small: true, helperText: 'Max'}
-      },{
+      }, {
         type: LibraryComponentType.NUMERIC_INPUT,
         key: 'stepSize',
-        props: {small: true, helperText: 'Step size',
+        props: {
+          small: true, helperText: 'Step size',
           stepSize: 0.1,
           minorStepSize: 0.1,
         }
-      },{
+      }, {
         type: LibraryComponentType.NUMERIC_INPUT,
         key: 'labelStepSize',
         props: {small: true, helperText: 'Label step size'}
@@ -238,7 +257,57 @@ export default class BlockService {
         type: LibraryComponentType.TEXT_INPUT,
         key: 'linkText',
         props: {small: true},
-      }]]
+      }]],
+      [LibraryComponentType.HEADER, [{
+        type: LibraryComponentType.TEXT_INPUT,
+        key: 'value',
+        props: {small: true},
+      }, {
+        type: LibraryComponentType.RADIO_GROUP,
+        key: 'type',
+        props: {
+          value: HEADER_TYPE.ONE,
+          inline: true,
+          options: [
+            {
+              value: HEADER_TYPE.ONE,
+              label: 'H1'
+            },
+            {
+              value: HEADER_TYPE.TWO,
+              label: 'H2'
+            },
+            {
+              value: HEADER_TYPE.THREE,
+              label: 'H3'
+            },
+            {
+              value: HEADER_TYPE.FOUR,
+              label: 'H4'
+            },
+            {
+              value: HEADER_TYPE.FIVE,
+              label: 'H5'
+            },
+            {
+              value: HEADER_TYPE.SIX,
+              label: 'H6'
+            }
+          ]
+        },
+        onChange: () => {
+        }
+      }]],
+      [LibraryComponentType.PARAGRAPH, [{
+        type: LibraryComponentType.TEXTAREA,
+        key: 'value',
+        props: {small: true},
+      }]],
+      [LibraryComponentType.HINT, [{
+        type: LibraryComponentType.TEXTAREA,
+        key: 'value',
+        props: {small: true},
+      }]],
     ]);
 
     return configurations.get(type) || [];
@@ -246,6 +315,9 @@ export default class BlockService {
 
   static getAllComponentsForLibrary(): ComponentType[] {
     return [
+      LibraryComponentType.HEADER,
+      LibraryComponentType.PARAGRAPH,
+      LibraryComponentType.HINT,
       LibraryComponentType.TEXT_INPUT,
       LibraryComponentType.FILE_INPUT,
       LibraryComponentType.CHECKBOX,
