@@ -49,7 +49,7 @@ export default function LibraryItemComponent(props: ConfigurationComponentProps)
           {showFields && props.fields.map((field ) => {
 
             const FieldInstance = BlockService.getInstanceByType(field.type);
-            const fieldValue = customProps[field.key] || props.component.props.value || field.props.value;
+            const fieldValue = customProps[field.key] || field.props.value;
 
             return (
               <FieldInstance
@@ -85,13 +85,7 @@ export default function LibraryItemComponent(props: ConfigurationComponentProps)
           }}
           rightButtonText={'Reset fields'}
           rightButtonAction={() => {
-            const updatedProps = props.fields.reduce((acc: any, field: any) => {
-              acc[field.key] = props.component.props[field.key];
-
-              return acc;
-            }, {});
-
-            setCustomProps(updatedProps);
+            setCustomProps(props.component.props);
 
             // workaround for state clearing, need rethink
             setShowFields(false);
