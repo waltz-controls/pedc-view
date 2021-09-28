@@ -16,7 +16,9 @@ export default function NavigationComponent(props: NavigationComponentProps) {
     <Navbar>
       <NavbarGroup align={Alignment.LEFT}>
         <NavbarHeading>
-          <strong>PEDC-WI</strong>
+          <NavLink to={'/'}>
+            <strong>PEDC-WI</strong>
+          </NavLink>
         </NavbarHeading>
       </NavbarGroup>
       <NavbarGroup align={Alignment.RIGHT}>

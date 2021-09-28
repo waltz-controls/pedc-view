@@ -16,7 +16,7 @@ function AppComponent() {
       <Switch>
         <Route path="/login"><LoginComponent/></Route>
 
-        <Route path="/">
+        <PrivateRoute path="/">
           <NavigationComponent links={[
             {to: '/create-template', title: 'Create template'},
             {to: '/templates', title: 'Templates'},
@@ -24,23 +24,23 @@ function AppComponent() {
           ]}/>
 
           <Switch>
-            <PrivateRoute path="/create-template">
+            <Route path="/create-template">
               <TemplateGeneratorComponent/>
-            </PrivateRoute>
+            </Route>
 
-            <PrivateRoute path="/templates">
+            <Route path="/templates">
               <TemplateListComponent/>
-            </PrivateRoute>
+            </Route>
 
-            <PrivateRoute path="/documents/:id">
+            <Route path="/documents/:id">
               <DocumentComponent/>
-            </PrivateRoute>
+            </Route>
 
-            <PrivateRoute path="/documents">
+            <Route path="/documents">
               <DocumentListComponent/>
-            </PrivateRoute>
+            </Route>
           </Switch>
-        </Route>
+        </PrivateRoute>
       </Switch>
     </Router>
   );
