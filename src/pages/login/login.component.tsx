@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
-import {Button, FormGroup, InputGroup, Intent, NonIdealState,} from "@blueprintjs/core";
+import {Button, Colors, FormGroup, H1, H4, H6, InputGroup, Intent} from "@blueprintjs/core";
+import {ReactComponent as Logo} from './logo.svg';
 import "./login.component.scss";
 
 import AuthApiService from "api/auth.api.service";
@@ -38,36 +39,55 @@ export default function LoginComponent(): any {
   }, [isAuth]);
 
   return (
-    <div className={"login-container"}>
+    <div
+      className={"login-container"}
+      onKeyPress={(e) => {
+        if(e.key === 'Enter'){
+          processLogin();
+        }
+      }}
+    >
 
-      <FormGroup label={'Username'}>
-        <InputGroup
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-      </FormGroup>
+      <div className="login-logo">
+        <Logo/>
+      </div>
 
-      <FormGroup label={'Password'}>
-        <InputGroup
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-      </FormGroup>
+      <div className="login-form">
 
-      <br/>
+        <H1 className={'login-form-title'}>PEDC</H1>
+        <H4 className={'login-form-desc'}>Pre Experiment Data Collector</H4>
 
-      <Button
-        fill
-        intent={Intent.PRIMARY}
-        onClick={processLogin}
-      >Login</Button>
+        <br/>
+        <br/>
 
-      <br/>
+        <FormGroup label={'Username'}>
+          <InputGroup
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+          />
+        </FormGroup>
 
-      {errorText && <NonIdealState
-        icon="error"
-        title={errorText}
-      />}
+        <FormGroup label={'Password'}>
+          <InputGroup
+            onChange={(e) => setPassword(e.target.value)}
+            type={"password"}
+            value={password}
+          />
+        </FormGroup>
+
+        <br/>
+
+        <Button
+          fill
+          intent={Intent.PRIMARY}
+          onClick={processLogin}
+        >Login</Button>
+
+        <br/>
+
+        {errorText && <H6 style={{color: Colors.RED5}}>Error: {errorText}</H6>}
+
+      </div>
     </div>
   );
 }
