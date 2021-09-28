@@ -1,7 +1,9 @@
-import {NavLink} from "react-router-dom";
-import {Alignment, Button, Navbar, NavbarDivider, NavbarGroup, NavbarHeading} from "@blueprintjs/core";
+import {NavLink, useHistory} from "react-router-dom";
+import {Alignment, Button, Menu, MenuItem, Navbar, NavbarDivider, NavbarGroup, NavbarHeading} from "@blueprintjs/core";
 import React from "react";
 import './navigation.component.scss';
+import {Popover2} from "@blueprintjs/popover2";
+import {useAppState} from "../state/state.context";
 
 type NavigationComponentProps = {
   links: Array<{
@@ -11,6 +13,22 @@ type NavigationComponentProps = {
 };
 
 export default function NavigationComponent(props: NavigationComponentProps) {
+
+  const appState = useAppState();
+  const history = useHistory();
+
+  const NavigationMenu = (
+    <Menu>
+      <MenuItem
+        icon="log-out"
+        text="Log out"
+        onClick={() => {
+          appState.setAuth(false)
+          history.push('/login');
+        }}
+      />
+    </Menu>
+  );
 
   return (
     <Navbar>
@@ -32,9 +50,11 @@ export default function NavigationComponent(props: NavigationComponentProps) {
           </NavLink>
         ))}
         <NavbarDivider/>
-        <Button icon="user" minimal/>
-        <Button icon="notifications" minimal/>
-        <Button icon="cog" minimal/>
+
+        <Popover2 content={NavigationMenu}>
+          <Button icon="user" minimal/>
+        </Popover2>
+
       </NavbarGroup>
     </Navbar>
   );
