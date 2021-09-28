@@ -24,23 +24,6 @@ function AppComponent() {
             {to: '/documents', title: 'Documents'},
           ]}/>
 
-          <Callout
-            intent={Intent.SUCCESS}
-            icon={false}
-            title={"How to work with PEDC:"}
-            className={'how-to-work'}
-          >
-            <div>
-              <strong>Create Template</strong> - You can create a template according to which documents will be created
-            </div>
-            <div>
-              <strong>Templates</strong> - List of templates created. You can create a document from the selected template. Or delete the template itself.
-            </div>
-            <div>
-              <strong>Documents</strong> - List of documents to be filled in with data.
-            </div>
-          </Callout>
-
           <Switch>
             <Route path="/create-template">
               <TemplateGeneratorComponent/>
@@ -56,6 +39,25 @@ function AppComponent() {
 
             <Route path="/documents">
               <DocumentListComponent/>
+            </Route>
+
+            <Route path="/">
+              <Callout
+                intent={Intent.SUCCESS}
+                icon={false}
+                title={"How to work with PEDC:"}
+                className={'how-to-work'}
+              >
+                <div>
+                  <strong>Create Template</strong> - You can create a template according to which documents will be created
+                </div>
+                <div>
+                  <strong>Templates</strong> - List of templates created. You can create a document from the selected template. Or delete the template itself.
+                </div>
+                <div>
+                  <strong>Documents</strong> - List of documents to be filled in with data.
+                </div>
+              </Callout>
             </Route>
           </Switch>
         </PrivateRoute>
