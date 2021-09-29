@@ -30,6 +30,7 @@ export default function TemplateGeneratorComponent() {
 
   const deleteAllPages = () => {
     deletePagesFromEnd(maxPage - 1);
+    setItems([]);
   }
 
   const deleteLastPage = () => {
@@ -68,10 +69,7 @@ export default function TemplateGeneratorComponent() {
               console.log('Template created:', title);
             });
           }}
-          clearDocument={() => {
-            setItems([]);
-            deleteAllPages();
-          }}
+          clearDocument={() => deleteAllPages()}
           deleteBlock={(id: string) => {
             const updatedItems = items.filter((item) => {
               return id !== item.id;
