@@ -7,6 +7,7 @@ import TemplateApiService from "api/template.api.service";
 import {useAppState} from "state/state.context";
 import PagesComponent from "components/pages.component";
 import { v1 as getId } from 'uuid';
+import {H3} from "@blueprintjs/core";
 
 
 export default function TemplateGeneratorComponent() {
@@ -17,6 +18,23 @@ export default function TemplateGeneratorComponent() {
   const [maxPage, setMaxPage] = useState<number>(1);
 
   const blocks = items.filter((item) => item.page === currentPage);
+
+  const deletePagesFromEnd = (limit: number) => {
+    const updatedMaxPage = maxPage - limit;
+    const updatedItems = items.filter((item) => item.page && item.page <= updatedMaxPage);
+
+    setItems(updatedItems);
+    setMaxPage(updatedMaxPage);
+    setCurrentPage(updatedMaxPage);
+  }
+
+  const deleteAllPages = () => {
+    deletePagesFromEnd(maxPage - 1);
+  }
+
+  const deleteLastPage = () => {
+    deletePagesFromEnd(1);
+  }
 
   return (
     <div className="generator-container">
@@ -41,6 +59,8 @@ export default function TemplateGeneratorComponent() {
 
       <div className="generator-document">
 
+        <H3>Template</H3>
+
         <TemplateComponent
           blocks={blocks}
           saveDocument={(title: string) => {
@@ -48,7 +68,10 @@ export default function TemplateGeneratorComponent() {
               console.log('Template created:', title);
             });
           }}
-          clearDocument={() => setItems([])}
+          clearDocument={() => {
+            setItems([]);
+            deleteAllPages();
+          }}
           deleteBlock={(id: string) => {
             const updatedItems = items.filter((item) => {
               return id !== item.id;
@@ -66,14 +89,7 @@ export default function TemplateGeneratorComponent() {
               setCurrentPage(maxPage + 1);
             }}
             selectPage={(index) => setCurrentPage(index)}
-            deletePage={() => {
-              const updatedMaxPage = maxPage - 1;
-              const updatedItems = items.filter((item) => item.page && item.page <= updatedMaxPage);
-
-              setItems(updatedItems);
-              setMaxPage(updatedMaxPage);
-              setCurrentPage(updatedMaxPage);
-            }}
+            deletePage={() => deleteLastPage()}
           />
 
         </TemplateComponent>

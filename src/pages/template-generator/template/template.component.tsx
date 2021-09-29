@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, ButtonGroup, Callout, FormGroup, H3, InputGroup, Intent} from "@blueprintjs/core";
+import {Button, ButtonGroup, FormGroup, InputGroup, Intent} from "@blueprintjs/core";
 import './template.component.scss';
 import {ComponentType} from "types";
 
@@ -16,34 +16,35 @@ export default function TemplateComponent(props: TemplateComponentProps) {
 
   return (
     <>
-      <H3>Document Template</H3>
+      <ButtonGroup fill>
+        <Button
+          intent={Intent.PRIMARY}
+          disabled={!Boolean(title)}
+          onClick={() => {
+            props.saveDocument(title);
+            props.clearDocument();
+          }}
+        >
+          Create template
+        </Button>
+        <Button intent={Intent.DANGER} onClick={() => {
+          props.clearDocument();
+          setTitle('');
+        }}>
+          Reset template
+        </Button>
+      </ButtonGroup>
 
-      <Callout className={'template-control'}>
+      <br/>
 
-        <FormGroup label={'Template title'}>
-          <InputGroup
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-          />
-        </FormGroup>
+      <FormGroup label={'Title'}>
+        <InputGroup
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+        />
+      </FormGroup>
 
-        <ButtonGroup fill>
-          <Button
-            intent={Intent.PRIMARY}
-            disabled={!Boolean(title)}
-            onClick={() => {
-              props.saveDocument(title);
-              props.clearDocument();
-            }}
-          >
-            Create
-          </Button>
-          <Button intent={Intent.DANGER} onClick={props.clearDocument}>
-            Clear
-          </Button>
-        </ButtonGroup>
-      </Callout>
-
+      {/* Pagination from parent component */}
       {props.children}
 
       <div className={"template-container"}>
