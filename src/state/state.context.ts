@@ -11,9 +11,15 @@ export function getDefaultState() {
     return localStorage.getItem(TOKEN_KEY) || '';
   }
 
+  const clearToken = (): void => {
+    localStorage.setItem(TOKEN_KEY, '');
+    window.location.reload();
+  }
+
   return {
     setToken,
     getToken,
+    clearToken,
   };
 }
 

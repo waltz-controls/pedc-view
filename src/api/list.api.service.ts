@@ -14,9 +14,7 @@ export default class ListApiService {
 
   constructor(appState: AppStateType) {
     this.TOKEN = appState.getToken();
-    this.clearToken = () => {
-      appState.setToken('');
-    };
+    this.clearToken = () => appState.clearToken();
   }
 
   public insertOne(title: string, blocks: any[]): Promise<any> {

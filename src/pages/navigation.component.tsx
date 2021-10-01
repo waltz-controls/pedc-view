@@ -37,7 +37,7 @@ export default function NavigationComponent(props: NavigationComponentProps) {
 
         <NavLink
           to="/login"
-          onClick={() => appState.setToken('')}
+          onClick={() => appState.clearToken()}
         >
           Log out
         </NavLink>
