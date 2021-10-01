@@ -54,22 +54,15 @@ export default function TemplateListComponent() {
   }
 
   return (
-    <div className="templates-list templates-list__container">
+    <div className="templates-list">
+
+      <H3>Choose template:</H3>
+
+      <br/>
+
+      <div className="templates-list__container">
+
       <div className={"list-container"}>
-        <H3>Choose template:</H3>
-
-        <br/>
-
-        <FormGroup
-          label={"Search template..."}
-        >
-          <InputGroup
-            disabled
-          />
-        </FormGroup>
-
-        <br/>
-
         {templates.map((template: any, index: number) => (
           <div key={index} className="list-block">
             <div
@@ -90,16 +83,25 @@ export default function TemplateListComponent() {
 
       {selectedTemplate && <div className={"form-container"}>
 
-        <H3>{selectedTemplate?.title}</H3>
+        <H3>Create document</H3>
 
-        <FormGroup
-          label={"Document title"}
-        >
+        <br/>
+
+        <FormGroup label={"Document title"}>
           <InputGroup
             value={documentTitle}
             onChange={(e: any) => setDocumentTitle(e.target.value)}
           />
         </FormGroup>
+
+        <FormGroup label={"Selected template"}>
+          <InputGroup
+            value={selectedTemplate?.title}
+            disabled
+          />
+        </FormGroup>
+
+        <br/>
 
         <Button
           fill
@@ -120,6 +122,7 @@ export default function TemplateListComponent() {
           Delete template
         </Button>
       </div>}
+      </div>
     </div>
   );
 }
