@@ -6,13 +6,13 @@ export default function PrivateRoute(props: any) {
   const {children, ...rest} = props;
   let appState = useAppState();
 
+  const hasAuth = Boolean(appState.getToken());
+
   return (
     <Route
       {...rest}
       render={({location}) =>
-        appState.getAuth() ? (
-          children
-        ) : (
+        hasAuth ? (children) : (
           <Redirect
             to={{
               pathname: "/login",

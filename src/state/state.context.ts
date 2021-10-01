@@ -1,28 +1,17 @@
 import React, {useContext} from "react";
 
+const TOKEN_KEY = 'PEDC-TOKEN';
+
 export function getDefaultState() {
-  let isAuthenticated = false;
-  let token = '';
-
-  const setAuth = (value: boolean): void => {
-    isAuthenticated = value;
-  }
-
-  const getAuth = (): boolean => {
-    return isAuthenticated;
-  }
-
   const setToken = (value: string): void => {
-    token = value;
+    localStorage.setItem(TOKEN_KEY, value);
   }
 
   const getToken = (): string => {
-    return token;
+    return localStorage.getItem(TOKEN_KEY) || '';
   }
 
   return {
-    setAuth,
-    getAuth,
     setToken,
     getToken,
   };

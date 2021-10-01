@@ -23,7 +23,7 @@ export default function NavigationComponent(props: NavigationComponentProps) {
         icon="log-out"
         text="Log out"
         onClick={() => {
-          appState.setAuth(false)
+          appState.setToken('');
           history.push('/login');
         }}
       />

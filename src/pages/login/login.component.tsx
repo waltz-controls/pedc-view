@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
 import {Button, Colors, FormGroup, H1, H4, H6, InputGroup, Intent} from "@blueprintjs/core";
 import {ReactComponent as Logo} from './logo.svg';
@@ -15,34 +15,30 @@ export default function LoginComponent(): any {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setError] = useState('');
-  const [isAuth, setAuthStatus] = useState(appState.getAuth());
 
   const processLogin = () => {
     api
       .login(username, password)
       .then((response) => {
         if (response.isSuccessful) {
-          appState.setAuth(true);
           appState.setToken(response.access_token || '');
-          setAuthStatus(true);
           setError('');
+          history.push('/');
         } else {
           setError(response.message);
         }
       });
   }
 
-  useEffect(() => {
-    if (isAuth) {
-      history.push('/');
-    }
-  }, [isAuth]);
+  if (Boolean(appState.getToken())) {
+    history.push('/');
+  }
 
   return (
     <div
       className={"login-container"}
       onKeyPress={(e) => {
-        if(e.key === 'Enter'){
+        if (e.key === 'Enter') {
           processLogin();
         }
       }}

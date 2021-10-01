@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
-import {Button, Card, H3, H4, Intent, Spinner} from "@blueprintjs/core";
+import {Button, H3, H4, Intent, Spinner} from "@blueprintjs/core";
 import './document-list.component.scss';
 import DocumentApiService from "api/document.api.service";
 import {useAppState} from "state/state.context";
