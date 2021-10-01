@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import {Button, Colors, FormGroup, H1, H4, H6, InputGroup, Intent} from "@blueprintjs/core";
 import {ReactComponent as Logo} from './logo.svg';
@@ -30,9 +30,11 @@ export default function LoginComponent(): any {
       });
   }
 
-  if (Boolean(appState.getToken())) {
-    history.push('/');
-  }
+  useEffect(() => {
+    if (Boolean(appState.getToken())) {
+      history.push('/');
+    }
+  });
 
   return (
     <div
