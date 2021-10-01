@@ -1,0 +1,30 @@
+.item {
+  &-block {
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background: #314046;
+    }
+
+    &-title {
+      font-size: 18px;
+
+      &--selected {
+        font-weight: bold;
+      }
+    }
+
+    &-size {
+      font-weight: lighter;
+      padding-right: 8px;
+      padding-left: 8px;
+    }
+
+    &-id {
+      font-size: 10px;
+      opacity: 0.7;
+    }
+  }
+}

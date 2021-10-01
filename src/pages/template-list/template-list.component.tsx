@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Button, FormGroup, H2, H3, InputGroup, Intent, Spinner} from '@blueprintjs/core';
+import {Button, FormGroup, H3, InputGroup, Intent, Spinner} from '@blueprintjs/core';
 import {useHistory} from 'react-router-dom';
 import './template-list.component.scss';
 import TemplateApiService from "api/template.api.service";
 import DocumentApiService from "api/document.api.service";
 import {useAppState} from "state/state.context";
+import ListComponent from "../../components/list.component";
 
 
 export default function TemplateListComponent() {
@@ -62,66 +63,55 @@ export default function TemplateListComponent() {
 
       <div className="templates-list__container">
 
-      <div className={"list-container"}>
-        {templates.map((template: any, index: number) => (
-          <div key={index} className="list-block">
-            <div
-              className={selectedTemplate?._id === template._id
-                ? "list-block-title list-block-title--selected"
-                : "list-block-title"
-              }
-              onClick={() => selectTemplate(template)}
-            >
-              {template.title}
-
-              <span className={"list-block-size"}>({template.blocks.length} blocks)</span>
-            </div>
-            <div className={"list-block-id"}>{template._id}</div>
-          </div>
-        ))}
-      </div>
-
-      {selectedTemplate && <div className={"form-container"}>
-
-        <H3>Create document</H3>
-
-        <br/>
-
-        <FormGroup label={"Document title"}>
-          <InputGroup
-            value={documentTitle}
-            onChange={(e: any) => setDocumentTitle(e.target.value)}
+        <div className={"list-container"}>
+          <ListComponent
+            items={templates}
+            selectItem={(item) => selectTemplate(item)}
+            selectedItem={selectedTemplate}
           />
-        </FormGroup>
+        </div>
 
-        <FormGroup label={"Selected template"}>
-          <InputGroup
-            value={selectedTemplate?.title}
-            disabled
-          />
-        </FormGroup>
+        {selectedTemplate && <div className={"form-container"}>
 
-        <br/>
+          <H3>Create document</H3>
 
-        <Button
-          fill
-          intent={Intent.PRIMARY}
-          disabled={!Boolean(documentTitle)}
-          onClick={() => createDocument(documentTitle, selectedTemplate)}
-        >
-          Create document
-        </Button>
+          <br/>
 
-        <br/>
+          <FormGroup label={"Document title"}>
+            <InputGroup
+              value={documentTitle}
+              onChange={(e: any) => setDocumentTitle(e.target.value)}
+            />
+          </FormGroup>
 
-        <Button
-          fill
-          intent={Intent.DANGER}
-          onClick={() => removeTemplate(selectedTemplate)}
-        >
-          Delete template
-        </Button>
-      </div>}
+          <FormGroup label={"Selected template"}>
+            <InputGroup
+              value={selectedTemplate?.title}
+              disabled
+            />
+          </FormGroup>
+
+          <br/>
+
+          <Button
+            fill
+            intent={Intent.PRIMARY}
+            disabled={!Boolean(documentTitle)}
+            onClick={() => createDocument(documentTitle, selectedTemplate)}
+          >
+            Create document
+          </Button>
+
+          <br/>
+
+          <Button
+            fill
+            intent={Intent.DANGER}
+            onClick={() => removeTemplate(selectedTemplate)}
+          >
+            Delete template
+          </Button>
+        </div>}
       </div>
     </div>
   );

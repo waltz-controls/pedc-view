@@ -28,3 +28,9 @@ export type RawComponentType = {
   type: LibraryComponentType;
   props: any;
 }
+
+export type CommonItemType = {
+  _id: string;
+  title: string;
+  blocks: any[];
+}
