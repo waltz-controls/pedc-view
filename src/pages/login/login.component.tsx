@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from 'react-router-dom';
 import {Button, Colors, FormGroup, H1, H4, H6, InputGroup, Intent} from "@blueprintjs/core";
 import {ReactComponent as Logo} from './logo.svg';
 import "./login.component.scss";
@@ -7,10 +7,26 @@ import "./login.component.scss";
 import AuthApiService from "api/auth.api.service";
 import {useAppState} from "state/state.context";
 
+
+function getRedirectLocation(location: any): string {
+  const {
+    pathname = '',
+    search = ''
+  } = location?.state?.from;
+
+  if(!pathname && !search){
+    return '/';
+  }
+
+  return pathname + search;
+}
+
+
 export default function LoginComponent(): any {
   const api = new AuthApiService();
   const history = useHistory();
   const appState = useAppState();
+  const location = useLocation();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +39,7 @@ export default function LoginComponent(): any {
         if (response.isSuccessful) {
           appState.setToken(response.access_token || '');
           setError('');
-          history.push('/');
+          history.push(getRedirectLocation(location));
         } else {
           setError(response.message);
         }
@@ -32,7 +48,7 @@ export default function LoginComponent(): any {
 
   useEffect(() => {
     if (Boolean(appState.getToken())) {
-      history.push('/');
+      history.push(getRedirectLocation(location));
     }
   });
 
