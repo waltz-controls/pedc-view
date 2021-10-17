@@ -5,8 +5,10 @@
   }
 
   &-library {
-    flex: 1;
+    flex: 2;
     padding: 16px;
+    height: 100%;
+    overflow: scroll;
   }
 
   &-document {
