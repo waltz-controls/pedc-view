@@ -38,6 +38,7 @@ export default function LoginComponent(): any {
       .then((response) => {
         if (response.isSuccessful) {
           appState.setToken(response.access_token || '');
+          appState.setUserId(response.userId || '');
           setError('');
           history.push(getRedirectLocation(location));
         } else {

@@ -9,17 +9,17 @@ export default function PrivateRoute(props: any) {
   const {children, ...rest} = props;
   const appState = useAppState();
   const query = useQuery();
-  const documentId = query.get('document_id');
+  const docId = query.get('attach_document_by_id');
 
-  const hasDocumentId = Boolean(documentId);
+  const hasDocId = Boolean(docId);
   const hasAuth = Boolean(appState.getToken());
 
   return (
     <Route
       {...rest}
       render={({location}) => {
-        if(hasAuth && hasDocumentId){
-          return <Redirect to={"/documents/" + documentId}/>;
+        if(hasAuth && hasDocId){
+          return <Redirect to={{pathname: "/documents/attach", state: {docId}}}/>;
         }
 
         if(!hasAuth){

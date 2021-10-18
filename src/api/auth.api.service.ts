@@ -5,6 +5,7 @@ export default class AuthApiService {
   public login(username: string, password: string): Promise<{
     access_token?: string;
     isSuccessful: boolean;
+    userId: string;
     message: string;
   }> {
     return fetch(this.STORAGE_PATH + '/auth/login', {

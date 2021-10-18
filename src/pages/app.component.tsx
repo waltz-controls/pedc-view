@@ -9,12 +9,16 @@ import DocumentListComponent from "./document-list/document-list.component";
 import LoginComponent from "./login/login.component";
 import PrivateRoute from "components/private-route.component";
 import {Callout, Intent} from "@blueprintjs/core";
+import AttachDocument from './attach-document/attach-document.component';
 
 
 function AppComponent() {
   return (
     <Router>
       <Switch>
+
+        {/* The routes order is important. Be careful! */}
+
         <Route path="/login"><LoginComponent/></Route>
 
         <PrivateRoute path="/">
@@ -31,6 +35,10 @@ function AppComponent() {
 
             <Route path="/templates">
               <TemplateListComponent/>
+            </Route>
+
+            <Route path="/documents/attach">
+              <AttachDocument/>
             </Route>
 
             <Route path="/documents/:id">

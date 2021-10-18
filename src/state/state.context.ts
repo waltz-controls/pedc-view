@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 
 const TOKEN_KEY = 'PEDC-TOKEN';
+const USER_ID_KEY = 'PEDC-USER-ID';
 
 export function getDefaultState() {
   const setToken = (value: string): void => {
@@ -16,10 +17,26 @@ export function getDefaultState() {
     window.location.reload();
   }
 
+  const setUserId = (value: string): void => {
+    localStorage.setItem(USER_ID_KEY, value);
+  }
+
+  const getUserId = (): string => {
+    return localStorage.getItem(USER_ID_KEY) || '';
+  }
+
+  const clearUserId = (): void => {
+    localStorage.setItem(USER_ID_KEY, '');
+    window.location.reload();
+  }
+
   return {
     setToken,
     getToken,
     clearToken,
+    setUserId,
+    getUserId,
+    clearUserId,
   };
 }
 
