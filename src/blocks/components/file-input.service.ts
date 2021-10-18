@@ -8,14 +8,16 @@ export default class FileInputService {
     })
   }
 
-  static toFile(filename: any, url: any, mimeType?: any): Promise<File> {
-    mimeType = mimeType || (url.match(/^data:([^;]+);/) || '')[1];
+  static toFile({ name, dataUrl, type}: {
+    name: string;
+    dataUrl: string;
+    type?: string;
+  }): Promise<File> {
+    type = type || (dataUrl.match(/^data:([^;]+);/) || '')[1];
 
-    return fetch(url)
+    return fetch(dataUrl)
       .then((res) => res.arrayBuffer())
-      .then((buf) => {
-        return new File([buf], filename, {type: mimeType});
-      });
+      .then((buf) => new File([buf], name, {type}));
   }
 
   static loadFile(file: File): void {

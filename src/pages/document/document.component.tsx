@@ -100,18 +100,7 @@ export default function DocumentComponent() {
               onChange={(value: any) => {
                 const updatedBlocks = blocks.map((_block) => {
                   if (_block.id === block.id) {
-
-                    // TODO - refactor components with files
-
-                    if (_block.type === LibraryComponentType.FILE_INPUT) {
-                      _block.props.file = value;
-                    } else if (_block.type === LibraryComponentType.IMAGE) {
-                      _block.props.file = value;
-                    } else if (_block.type === LibraryComponentType.GALLERY) {
-                      _block.props.files = value;
-                    } else {
-                      _block.props.value = value;
-                    }
+                    _block.props.value = value;
                   }
 
                   return _block;

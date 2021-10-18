@@ -7,7 +7,7 @@ type ImageComponentProps = {
   label?: string;
   helperText?: string;
   labelInfo?: string;
-  file?: {
+  value?: {
     name: string;
     type: string;
     dataUrl: string;
@@ -18,10 +18,9 @@ type ImageComponentProps = {
   linkText?: string;
 };
 
-// TODO - add remove file logic
 
 export function ImageComponent(props: ImageComponentProps) {
-  const [file, setFile] = useState(props.file);
+  const [file, setFile] = useState(props.value);
 
   useEffect(() => {
     props.onChange(file);
@@ -37,6 +36,7 @@ export function ImageComponent(props: ImageComponentProps) {
         placeholder={props.placeholder}
         buttonText={props.buttonText}
         linkText={props.linkText}
+        value={file}
         onChange={(file) => setFile(file)}
       />
 

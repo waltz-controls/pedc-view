@@ -6,7 +6,7 @@ type FileInputComponentProps = {
   placeholder?: string,
   buttonText?: string;
   linkText?: string;
-  file?: {
+  value?: {
     name: string;
     type: string;
     dataUrl: string;
@@ -14,43 +14,35 @@ type FileInputComponentProps = {
   onChange(value: any): void
 };
 
-// TODO - add remove file logic
 
 export function FileInputComponent(props: FileInputComponentProps) {
   const [currentFile, setCurrentFile] = useState<File>();
 
-  // --- Create file from dataUrl
   useEffect(() => {
-    if(!props.file){
-      return;
+    if(props.value){
+      FileInputService
+        .toFile(props.value)
+        .then(defaultFile => setCurrentFile(defaultFile));
     }
-
-    const {name, type, dataUrl} = props.file;
-
-    FileInputService
-      .toFile(name, dataUrl, type)
-      .then(defaultFile => setCurrentFile(defaultFile));
-  }, [props.file]);
-
-  // Create dataUrl from file
-  useEffect(() => {
-    if (!currentFile) {
-      return;
-    }
-
-    const {name, type} = currentFile;
-
-    FileInputService
-      .toBase64(currentFile)
-      .then((dataUrl) => {
-        props.onChange({name, type, dataUrl});
-      });
-  }, [currentFile]);
+  }, [props.value]);
 
   return (
     <>
       <FileInput
-        onChange={(value: any) => setCurrentFile(value.target.files[0])}
+        onChange={(value: any) => {
+          const file = value.target.files[0];
+
+          setCurrentFile(file);
+
+          FileInputService.toBase64(file)
+            .then((dataUrl) => {
+              props.onChange({
+                name: file?.name,
+                type: file?.type,
+                dataUrl
+              });
+            });
+        }}
         text={(currentFile && currentFile.name) || props.placeholder || 'Choose file...'}
         buttonText={props.buttonText || 'Browse'}
       />

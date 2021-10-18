@@ -12,17 +12,16 @@ type GalleryComponentProps = {
   label?: string;
   helperText?: string;
   labelInfo?: string;
-  files?: FileType[];
+  value?: FileType[];
   placeholder?: string;
   onChange(file: any): void;
   buttonText?: string;
   linkText?: string;
 };
 
-// TODO - add remove file logic
 
 export function GalleryComponent(props: GalleryComponentProps) {
-  const [files, setFiles] = useState<FileType[]>(props.files || []);
+  const [files, setFiles] = useState<FileType[]>(props.value || []);
 
   useEffect(() => {
     props.onChange(files);
