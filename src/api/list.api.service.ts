@@ -34,7 +34,9 @@ export default class ListApiService {
           return data;
         }
 
-        this.clearToken();
+        if(data.statusCode === 401) {
+          this.clearToken();
+        }
 
         return {
           title: "",
@@ -57,7 +59,9 @@ export default class ListApiService {
           return data;
         }
 
-        this.clearToken();
+        if(data.statusCode === 401) {
+          this.clearToken();
+        }
 
         return {
           title: "",
@@ -80,7 +84,9 @@ export default class ListApiService {
           return data;
         }
 
-        this.clearToken();
+        if(data.statusCode === 401) {
+          this.clearToken();
+        }
 
         return [];
       });
@@ -99,7 +105,9 @@ export default class ListApiService {
           return data;
         }
 
-        this.clearToken();
+        if(data.statusCode === 401) {
+          this.clearToken();
+        }
 
         return [];
       });
@@ -119,7 +127,9 @@ export default class ListApiService {
           return data;
         }
 
-        this.clearToken();
+        if(data.statusCode === 401) {
+          this.clearToken();
+        }
 
         return false;
       });
