@@ -11,7 +11,7 @@ export default class UserApiService {
   constructor(appState: AppStateType) {
     this.TOKEN = appState.getToken();
     this.USER_ID = appState.getUserId();
-    this.clearToken = () => appState.clearToken();
+    this.clearToken = () => appState.clearAll();
   }
 
   public getCurrentProfile(): Promise<any> {

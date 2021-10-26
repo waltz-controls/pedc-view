@@ -1,4 +1,4 @@
-# PEDC-WI
+# PEDC-VIEW
 
 __Status__: proof-of-concept
 

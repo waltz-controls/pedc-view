@@ -2,41 +2,24 @@ import React, {useContext} from "react";
 
 const TOKEN_KEY = 'PEDC-TOKEN';
 const USER_ID_KEY = 'PEDC-USER-ID';
+const USER_ROLE_KEY = 'PEDC-USER-ROLE';
 
 export function getDefaultState() {
-  const setToken = (value: string): void => {
-    localStorage.setItem(TOKEN_KEY, value);
-  }
-
-  const getToken = (): string => {
-    return localStorage.getItem(TOKEN_KEY) || '';
-  }
-
-  const clearToken = (): void => {
-    localStorage.setItem(TOKEN_KEY, '');
-    window.location.reload();
-  }
-
-  const setUserId = (value: string): void => {
-    localStorage.setItem(USER_ID_KEY, value);
-  }
-
-  const getUserId = (): string => {
-    return localStorage.getItem(USER_ID_KEY) || '';
-  }
-
-  const clearUserId = (): void => {
-    localStorage.setItem(USER_ID_KEY, '');
-    window.location.reload();
-  }
+  const getSetFunc = (token: string) => (value: string) => localStorage.setItem(token, value);
+  const getGetFunc = (token: string) => () => localStorage.getItem(token) || '';
 
   return {
-    setToken,
-    getToken,
-    clearToken,
-    setUserId,
-    getUserId,
-    clearUserId,
+    setToken: getSetFunc(TOKEN_KEY),
+    getToken: getGetFunc(TOKEN_KEY),
+    setUserId: getSetFunc(USER_ID_KEY),
+    getUserId: getGetFunc(USER_ID_KEY),
+    setUserRole: getSetFunc(USER_ROLE_KEY),
+    getUserRole: getGetFunc(USER_ROLE_KEY),
+    clearAll: () => {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_ID_KEY);
+      localStorage.removeItem(USER_ROLE_KEY);
+    }
   };
 }
 
