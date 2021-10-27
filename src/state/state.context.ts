@@ -6,7 +6,7 @@ const USER_ROLE_KEY = 'PEDC-USER-ROLE';
 
 export function getDefaultState() {
   const getSetFunc = (token: string) => (value: string) => localStorage.setItem(token, value);
-  const getGetFunc = (token: string) => () => localStorage.getItem(token) || '';
+  const getGetFunc = (token: string) => (): any => localStorage.getItem(token) || '';
 
   return {
     setToken: getSetFunc(TOKEN_KEY),

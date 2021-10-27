@@ -19,7 +19,7 @@ export default function PrivateRoute(props: any) {
       {...rest}
       render={({location}) => {
         if(hasAuth && hasDocId){
-          return <Redirect to={{pathname: "/documents/attach", state: {docId}}}/>;
+          return <Redirect to={{pathname: "/documents/attach", state: {docId, from: location}}}/>;
         }
 
         if(!hasAuth){

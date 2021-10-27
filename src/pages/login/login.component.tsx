@@ -9,10 +9,8 @@ import {useAppState} from "state/state.context";
 
 
 function getRedirectLocation(location: any): string {
-  const {
-    pathname = '',
-    search = ''
-  } = location?.state?.from;
+  const pathname = location?.state?.from?.pathname || '';
+  const search = location?.state?.from?.search || '';
 
   if(!pathname && !search){
     return '/';
@@ -39,6 +37,7 @@ export default function LoginComponent(): any {
         if (response.isSuccessful) {
           appState.setToken(response.access_token || '');
           appState.setUserId(response.userId || '');
+          appState.setUserRole(response.userRole || '');
           setError('');
           history.push(getRedirectLocation(location));
         } else {
