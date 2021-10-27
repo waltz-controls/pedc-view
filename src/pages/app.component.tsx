@@ -1,15 +1,16 @@
 import React from 'react';
-import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './app.component.scss';
-import NavigationComponent from "./navigation.component";
-import TemplateGeneratorComponent from "./template-generator/template-generator.component";
-import TemplateListComponent from "./template-list/template-list.component";
-import DocumentComponent from "./document/document.component";
-import DocumentListComponent from "./document-list/document-list.component";
-import LoginComponent from "./login/login.component";
-import PrivateRoute from "components/private-route.component";
-import {Callout, Intent} from "@blueprintjs/core";
+import NavigationComponent from './navigation.component';
+import TemplateGeneratorComponent from './template-generator/template-generator.component';
+import TemplateListComponent from './template-list/template-list.component';
+import DocumentComponent from './document/document.component';
+import DocumentListComponent from './document-list/document-list.component';
+import LoginComponent from './login/login.component';
+import PrivateRoute from 'components/private-route.component';
+import {Callout, Intent} from '@blueprintjs/core';
 import AttachDocument from './attach-document/attach-document.component';
+import {USER_ROLE} from '../types';
 
 
 function AppComponent() {
@@ -23,31 +24,31 @@ function AppComponent() {
 
         <PrivateRoute path="/">
           <NavigationComponent links={[
-            {to: '/create-template', title: 'Create template'},
-            {to: '/templates', title: 'Templates'},
-            {to: '/documents', title: 'Documents'},
+            {to: '/create-template', title: 'Create template', role: USER_ROLE.SCIENTIST},
+            {to: '/templates', title: 'Templates',  role: USER_ROLE.SCIENTIST},
+            {to: '/documents', title: 'Documents', role: USER_ROLE.USER},
           ]}/>
 
           <Switch>
-            <Route path="/create-template">
+            <PrivateRoute path="/create-template" role={USER_ROLE.SCIENTIST}>
               <TemplateGeneratorComponent/>
-            </Route>
+            </PrivateRoute>
 
-            <Route path="/templates">
+            <PrivateRoute path="/templates" role={USER_ROLE.SCIENTIST}>
               <TemplateListComponent/>
-            </Route>
+            </PrivateRoute>
 
-            <Route path="/documents/attach">
+            <PrivateRoute path="/documents/attach" role={USER_ROLE.USER}>
               <AttachDocument/>
-            </Route>
+            </PrivateRoute>
 
-            <Route path="/documents/:id">
+            <PrivateRoute path="/documents/:id" role={USER_ROLE.USER}>
               <DocumentComponent/>
-            </Route>
+            </PrivateRoute>
 
-            <Route path="/documents">
+            <PrivateRoute path="/documents" role={USER_ROLE.USER}>
               <DocumentListComponent/>
-            </Route>
+            </PrivateRoute>
 
             <Route path="/">
               <Callout

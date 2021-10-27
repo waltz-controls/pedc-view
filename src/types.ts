@@ -34,3 +34,8 @@ export type CommonItemType = {
   title: string;
   blocks: any[];
 }
+
+export enum USER_ROLE {
+  USER = 'USER',
+  SCIENTIST = 'SCIENTIST',
+}

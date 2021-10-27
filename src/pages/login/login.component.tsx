@@ -37,7 +37,7 @@ export default function LoginComponent(): any {
         if (response.isSuccessful) {
           appState.setToken(response.access_token || '');
           appState.setUserId(response.userId || '');
-          appState.setUserRole(response.userRole || '');
+          appState.setUserRole(response.role || '');
           setError('');
           history.push(getRedirectLocation(location));
         } else {

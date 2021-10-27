@@ -13,17 +13,19 @@ export default function PrivateRoute(props: any) {
 
   const hasDocId = Boolean(docId);
   const hasAuth = Boolean(appState.getToken());
+  const hasValidRole = props.role ? (appState.getUserRole() === props.role) : true;
 
   return (
     <Route
       {...rest}
       render={({location}) => {
-        if(hasAuth && hasDocId){
-          return <Redirect to={{pathname: "/documents/attach", state: {docId, from: location}}}/>;
+        if(!hasAuth || !hasValidRole){
+          appState.clearAll();
+          return <Redirect to={{pathname: "/login", state: {from: location}}}/>;
         }
 
-        if(!hasAuth){
-          return <Redirect to={{pathname: "/login", state: {from: location}}}/>;
+        if(hasDocId){
+          return <Redirect to={{pathname: "/documents/attach", state: {docId, from: location}}}/>;
         }
 
         return (children);

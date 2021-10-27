@@ -1,3 +1,5 @@
+import {USER_ROLE} from '../types';
+
 export default class AuthApiService {
 
   readonly STORAGE_PATH = '';
@@ -6,6 +8,7 @@ export default class AuthApiService {
     access_token?: string;
     isSuccessful: boolean;
     userId: string;
+    role: USER_ROLE;
     message: string;
   }> {
     return fetch(this.STORAGE_PATH + '/auth/login', {
@@ -15,7 +18,7 @@ export default class AuthApiService {
       },
       body: JSON.stringify({
         username,
-        password
+        password,
       })
     }).then((response) => {
       return response.json();
