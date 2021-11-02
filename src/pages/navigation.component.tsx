@@ -9,7 +9,7 @@ type NavigationComponentProps = {
   links: Array<{
     to: string;
     title: string;
-    role: USER_ROLE;
+    roles: USER_ROLE[];
   }>
 };
 
@@ -17,7 +17,7 @@ export default function NavigationComponent(props: NavigationComponentProps) {
   const appState = useAppState();
   const currentRole = appState.getUserRole();
 
-  const links = props.links.filter((link) => link.role === currentRole);
+  const links = props.links.filter((link) => link.roles.includes(currentRole));
 
   return (
     <Navbar>

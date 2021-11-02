@@ -14,6 +14,10 @@ import {USER_ROLE} from '../types';
 
 
 function AppComponent() {
+  const USER_ROLES_ONLY = [USER_ROLE.USER];
+  const SCIENTIST_ROLES_ONLY = [USER_ROLE.SCIENTIST];
+  const BOTH_ROLES = [USER_ROLE.USER, USER_ROLE.SCIENTIST];
+
   return (
     <Router>
       <Switch>
@@ -24,29 +28,29 @@ function AppComponent() {
 
         <PrivateRoute path="/">
           <NavigationComponent links={[
-            {to: '/create-template', title: 'Create template', role: USER_ROLE.SCIENTIST},
-            {to: '/templates', title: 'Templates',  role: USER_ROLE.SCIENTIST},
-            {to: '/documents', title: 'Documents', role: USER_ROLE.USER},
+            {to: '/create-template', title: 'Create template', roles: SCIENTIST_ROLES_ONLY},
+            {to: '/templates', title: 'Templates',  roles: SCIENTIST_ROLES_ONLY},
+            {to: '/documents', title: 'Documents', roles: BOTH_ROLES},
           ]}/>
 
           <Switch>
-            <PrivateRoute path="/create-template" role={USER_ROLE.SCIENTIST}>
+            <PrivateRoute path="/create-template" roles={SCIENTIST_ROLES_ONLY}>
               <TemplateGeneratorComponent/>
             </PrivateRoute>
 
-            <PrivateRoute path="/templates" role={USER_ROLE.SCIENTIST}>
+            <PrivateRoute path="/templates" roles={SCIENTIST_ROLES_ONLY}>
               <TemplateListComponent/>
             </PrivateRoute>
 
-            <PrivateRoute path="/documents/attach" role={USER_ROLE.USER}>
+            <PrivateRoute path="/documents/attach" roles={USER_ROLES_ONLY}>
               <AttachDocument/>
             </PrivateRoute>
 
-            <PrivateRoute path="/documents/:id" role={USER_ROLE.USER}>
+            <PrivateRoute path="/documents/:id" roles={BOTH_ROLES}>
               <DocumentComponent/>
             </PrivateRoute>
 
-            <PrivateRoute path="/documents" role={USER_ROLE.USER}>
+            <PrivateRoute path="/documents" roles={BOTH_ROLES}>
               <DocumentListComponent/>
             </PrivateRoute>
 

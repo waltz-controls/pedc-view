@@ -6,14 +6,14 @@ function useQuery(): Record<string, any> {
 }
 
 export default function PrivateRoute(props: any) {
-  const {children, ...rest} = props;
+  const {children, roles = [], ...rest} = props;
   const appState = useAppState();
   const query = useQuery();
   const docId = query.get('attach_document_by_id');
 
   const hasDocId = Boolean(docId);
   const hasAuth = Boolean(appState.getToken());
-  const hasValidRole = props.role ? (appState.getUserRole() === props.role) : true;
+  const hasValidRole = roles.includes(appState.getUserRole());
 
   return (
     <Route
