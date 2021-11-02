@@ -26,7 +26,7 @@ function AppComponent() {
 
         <Route path="/login"><LoginComponent/></Route>
 
-        <PrivateRoute path="/">
+        <PrivateRoute path="/" roles={BOTH_ROLES}>
           <NavigationComponent links={[
             {to: '/create-template', title: 'Create template', roles: SCIENTIST_ROLES_ONLY},
             {to: '/templates', title: 'Templates',  roles: SCIENTIST_ROLES_ONLY},
