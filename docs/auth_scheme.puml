@@ -6,10 +6,10 @@ component Navigation
 component Route
 component PrivateRoute
 
-note right
-	Special route that
-	checks authentication
-	in AppState
+note top
+	Special route that:
+	- Checks authentication
+	- Checks valid roles
 end note
 
 component LoginPage
@@ -17,30 +17,30 @@ agent AppState
 agent AuthService
 package ApiServices
 
-note right
+note top
 	Any API service, which
 	provide data or reset auth
 	when token expired.
 
-	Usually, AppState passed in
-	services inside pages (when
-	service instance created).
+	Usually, AppState.clearToken()
+	passed in services inside pages
+	(when service instance created).
 end note
 
 package Pages
 
 App --> Navigation
 Navigation --> Route
-Navigation --> PrivateRoute
+Navigation -> PrivateRoute
 Route --> LoginPage
-PrivateRoute --> Pages
+PrivateRoute -> Pages
 
 
 LoginPage .. AuthService
 
 PrivateRoute .. AppState: Check auth
 LoginPage . AppState: Set auth
-AppState .. ApiServices: Reset auth
+AppState . ApiServices: Reset auth
 
 
 @enduml
