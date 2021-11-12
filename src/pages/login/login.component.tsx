@@ -13,7 +13,11 @@ function getRedirectLocation(location: any): string {
   const search = location?.state?.from?.search || '';
   const hasValidRole = location?.state?.from?.hasValidRole || false;
 
-  if(!pathname && !search || !hasValidRole){
+  if(!pathname && !search){
+    return '/';
+  }
+
+  if(!hasValidRole){
     return '/';
   }
 

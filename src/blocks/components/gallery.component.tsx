@@ -67,6 +67,7 @@ export function GalleryComponent(props: GalleryComponentProps) {
           style={{marginTop: 20, width: '100%'}}
         >
           <img
+            alt={file.name}
             src={file.dataUrl}
             width={"100%"}
           />
