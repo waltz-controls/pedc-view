@@ -3,7 +3,7 @@ import {useHistory, useParams} from 'react-router-dom';
 import {Button, H3, Intent,} from "@blueprintjs/core";
 
 import './document.component.scss';
-import {ComponentType, LibraryComponentType} from "types";
+import {ComponentType} from "types";
 import DocumentApiService from "api/document.api.service";
 import BlockService from "blocks/block.service";
 import {useAppState} from "state/state.context";

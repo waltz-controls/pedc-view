@@ -42,6 +42,7 @@ export function ImageComponent(props: ImageComponentProps) {
 
       {file && <div style={{marginTop: 20, width: '100%'}}>
         <img
+          alt={file.name}
           src={file.dataUrl}
           width={"100%"}
         />

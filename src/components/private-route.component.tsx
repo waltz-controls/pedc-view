@@ -21,11 +21,17 @@ export default function PrivateRoute(props: any) {
       render={({location}) => {
         if(!hasAuth || !hasValidRole){
           appState.clearAll();
-          return <Redirect to={{pathname: "/login", state: {from: location}}}/>;
+          return <Redirect to={{
+            pathname: "/login",
+            state: {from: location, hasValidRole}}
+          }/>;
         }
 
         if(hasDocId){
-          return <Redirect to={{pathname: "/documents/attach", state: {docId, from: location}}}/>;
+          return <Redirect to={{
+            pathname: "/documents/attach",
+            state: {docId, from: location, hasValidRole}}
+          }/>;
         }
 
         return (children);

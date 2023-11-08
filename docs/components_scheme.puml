@@ -7,7 +7,7 @@ component PrivateRoute
 component LoginPage
 component TemplateGenerator
 
-note bottom
+note top
 	Container for:
 
 	__Library__ - List of blocks
@@ -21,9 +21,16 @@ end note
 
 component Library
 component Template
-component TemplateList
 component Document
+component TemplateList
 component DocumentList
+component AttachDocument
+
+note right
+	Used for attaching
+	document to current user
+end note
+
 package Blocks
 
 note right
@@ -41,17 +48,19 @@ note right
 end note
 
 App -- Navigation
-Navigation --> Route
+Navigation -> Route
+Route -> LoginPage
 Navigation --> PrivateRoute
-Route --> LoginPage
 
-PrivateRoute ---> TemplateGenerator
+
+PrivateRoute --> TemplateGenerator
 TemplateGenerator --> Library
 TemplateGenerator --> Template
 
-PrivateRoute ---> TemplateList
 PrivateRoute ---> Document
+PrivateRoute ---> TemplateList
 PrivateRoute ---> DocumentList
+PrivateRoute -> AttachDocument
 
 Library .. BlockService
 Template .. BlockService

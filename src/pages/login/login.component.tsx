@@ -11,8 +11,13 @@ import {useAppState} from "state/state.context";
 function getRedirectLocation(location: any): string {
   const pathname = location?.state?.from?.pathname || '';
   const search = location?.state?.from?.search || '';
+  const hasValidRole = location?.state?.from?.hasValidRole || false;
 
   if(!pathname && !search){
+    return '/';
+  }
+
+  if(!hasValidRole){
     return '/';
   }
 
